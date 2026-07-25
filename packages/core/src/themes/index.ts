@@ -19,3 +19,5 @@ export * from "./receipt";
 export * from "./sunset-film";
 export * from "./template";
 export * from "./whitespace-gallery";
+export * from "./soft-pink-dream";
+export * from "./warm-apricot";

@@ -23,6 +23,8 @@ import {
   sunsetFilmTheme,
   templateTheme,
   whitespaceGalleryTheme,
+  softPinkDreamTheme,
+  warmApricotTheme,
 } from "@wemd/core";
 
 // 从 ThemeDesigner 导入共享类型（解决类型重复定义问题）
@@ -205,6 +207,22 @@ export const builtInThemes: CustomTheme[] = [
     css: basicTheme + "\n" + templateTheme + "\n" + codeGithubTheme,
     isBuiltIn: true,
     isSelectable: false,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "soft-pink-dream",
+    name: "🎀 奶油粉白",
+    css: basicTheme + "\n" + softPinkDreamTheme + "\n" + codeGithubTheme,
+    isBuiltIn: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "warm-apricot",
+    name: "🍑 暖杏治愈",
+    css: basicTheme + "\n" + warmApricotTheme + "\n" + codeGithubTheme,
+    isBuiltIn: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
