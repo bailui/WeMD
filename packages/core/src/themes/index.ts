@@ -27,3 +27,4 @@ export * from "./sky-blue";
 export * from "./mauve-purple";
 export * from "./caramel-gold";
 export * from "./cherry-red";
+export * from "./ai-tool-style";
