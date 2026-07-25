@@ -13,7 +13,7 @@ export const mintGreenTheme = `/* WeMD Theme: 薄荷绿 · 法律文书风 */
 
 #wemd p {
     margin: 22px 0;
-    line-height: 1.9;
+    line-height: 1.75;
     text-align: left;
     color: #333;
     font-size: 16px;
@@ -175,7 +175,7 @@ export const mintGreenTheme = `/* WeMD Theme: 薄荷绿 · 法律文书风 */
     margin: 8px 0;
     color: #333;
     font-size: 16px;
-    line-height: 1.9;
+    line-height: 1.75;
 }
 #wemd ol li::marker { color: #79B4B0; font-weight: 600; }
 #wemd ul ol { list-style-type: decimal; }
