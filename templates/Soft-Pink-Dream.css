@@ -1,0 +1,419 @@
+/* ============================================
+ * WeMD 主题：奶油粉白 · Soft Pink Dream
+ * 设计：白鹿
+ * 风格：奶油粉白底 + 玫瑰金点缀 + 大圆角 + 轻柔阴影
+ * ============================================ */
+
+#wemd {
+    --wemd-page-padding: 24px;
+    --wemd-font-size: 16px;
+    --wemd-line-height: 1.8;
+    --wemd-paragraph-margin: 22px;
+    --wemd-paragraph-padding: 0px;
+    --wemd-text-color: #4a3548;
+    --wemd-primary-color: #e85d8e;
+    --wemd-letter-spacing: 0.3px;
+
+    --wemd-h1-font-size: 26px;
+    --wemd-h1-color: #3d2038;
+    --wemd-h2-font-size: 20px;
+    --wemd-h2-color: #5a3d52;
+    --wemd-h3-font-size: 17px;
+    --wemd-h3-color: #7a5c70;
+    --wemd-h4-font-size: 16px;
+    --wemd-h4-color: #8a6e80;
+
+    --wemd-code-background: #fff0f5;
+    --wemd-code-font-size: 13px;
+    --wemd-inline-code-color: #e85d8e;
+    --wemd-inline-code-background: #fff5f7;
+
+    --wemd-quote-background: #fff9fb;
+    --wemd-quote-border-color: #ffb3c6;
+    --wemd-quote-border-width: 4px;
+    --wemd-quote-border-style: solid;
+    --wemd-quote-text-color: #6b5565;
+    --wemd-quote-font-size: 15px;
+    --wemd-quote-padding-x: 24px;
+    --wemd-quote-padding-y: 20px;
+
+    --wemd-image-margin: 24px;
+    --wemd-image-border-radius: 16px;
+    --wemd-image-caption-color: #b89bad;
+    --wemd-image-caption-font-size: 13px;
+
+    --wemd-link-color: #e85d8e;
+    --wemd-italic-color: #8a6e80;
+    --wemd-del-color: #c0a0b0;
+    --wemd-mark-background: #fff0f5;
+    --wemd-mark-color: #e85d8e;
+
+    --wemd-table-header-background: #fff5f7;
+    --wemd-table-header-color: #5a3d52;
+    --wemd-table-border-color: #ffd6e0;
+
+    --wemd-hr-color: #ffd6e0;
+    --wemd-hr-height: 2px;
+    --wemd-hr-margin: 40px;
+
+    --wemd-list-spacing: 8px;
+    --wemd-list-marker-color: #e85d8e;
+    --wemd-list-marker-color-l2: #f0a0b8;
+
+    padding: 36px var(--wemd-page-padding);
+    max-width: 677px;
+    margin: 0 auto;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: var(--wemd-text-color);
+    background: linear-gradient(180deg, #fff9fb 0%, #ffffff 30%);
+    border-radius: 24px;
+    word-break: break-word;
+}
+
+/* ========== 段落 ========== */
+#wemd p {
+    margin: var(--wemd-paragraph-margin) 0;
+    padding: var(--wemd-paragraph-padding) 0;
+    line-height: var(--wemd-line-height);
+    text-align: justify;
+    color: var(--wemd-text-color);
+    font-size: var(--wemd-font-size);
+    letter-spacing: var(--wemd-letter-spacing);
+}
+
+/* ========== 一级标题 - 玫瑰金下划线 ========== */
+#wemd h1 {
+    margin: 50px 0 36px;
+    text-align: center;
+}
+#wemd h1 .content {
+    display: inline-block;
+    font-size: var(--wemd-h1-font-size);
+    font-weight: 700;
+    color: var(--wemd-h1-color);
+    padding-bottom: 16px;
+    position: relative;
+}
+#wemd h1 .content::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #ffb3c6, #e85d8e, #ffb3c6);
+    border-radius: 2px;
+}
+#wemd h1 .prefix,
+#wemd h1 .suffix {
+    display: none;
+}
+
+/* ========== 二级标题 - 粉色左边框 ========== */
+#wemd h2 {
+    margin: 40px 0 24px;
+}
+#wemd h2 .content {
+    display: inline-block;
+    font-size: var(--wemd-h2-font-size);
+    font-weight: 700;
+    color: var(--wemd-h2-color);
+    padding: 6px 0 6px 16px;
+    border-left: 4px solid #e85d8e;
+    border-radius: 0 8px 8px 0;
+    background: linear-gradient(90deg, rgba(232, 93, 142, 0.08), transparent);
+}
+#wemd h2 .prefix,
+#wemd h2 .suffix {
+    display: none;
+}
+
+/* ========== 三级标题 - 淡粉圆角标签 ========== */
+#wemd h3 {
+    margin: 32px 0 18px;
+}
+#wemd h3 .content {
+    display: inline-block;
+    font-size: var(--wemd-h3-font-size);
+    font-weight: 600;
+    color: #fff;
+    background: #e85d8e;
+    padding: 5px 16px;
+    border-radius: 20px;
+}
+#wemd h3 .prefix,
+#wemd h3 .suffix {
+    display: none;
+}
+
+/* ========== 四级标题 ========== */
+#wemd h4 {
+    margin: 24px 0 12px;
+}
+#wemd h4 .content {
+    font-size: var(--wemd-h4-font-size);
+    font-weight: 600;
+    color: var(--wemd-h4-color);
+    padding-left: 12px;
+    border-left: 3px solid #f0a0b8;
+}
+#wemd h4 .prefix,
+#wemd h4 .suffix {
+    display: none;
+}
+
+/* ========== 引用 ========== */
+#wemd .multiquote-1 {
+    margin: 28px 0;
+    padding: var(--wemd-quote-padding-y) var(--wemd-quote-padding-x);
+    background: var(--wemd-quote-background);
+    border-left: var(--wemd-quote-border-width) var(--wemd-quote-border-style) var(--wemd-quote-border-color);
+    border-radius: 0 16px 16px 0;
+    box-shadow: 0 2px 12px rgba(255, 107, 138, 0.06);
+}
+#wemd .multiquote-1 p {
+    margin: 0;
+    color: var(--wemd-quote-text-color);
+    font-size: var(--wemd-quote-font-size);
+    line-height: 1.7;
+}
+#wemd .multiquote-2 {
+    margin: 24px 0;
+    padding: 16px 20px;
+    background: #fff9fb;
+    border-left: 3px solid #f0a0b8;
+    border-radius: 0 12px 12px 0;
+}
+#wemd .multiquote-2 p {
+    margin: 0;
+    color: var(--wemd-quote-text-color);
+    font-size: 14px;
+}
+#wemd .multiquote-3 {
+    margin: 22px 0;
+    padding: 14px 18px;
+    background: #fffcfd;
+    border-left: 2px solid #ffd6e0;
+    border-radius: 0 10px 10px 0;
+}
+#wemd .multiquote-3 p {
+    margin: 0;
+    color: var(--wemd-quote-text-color);
+    font-size: 14px;
+}
+
+/* ========== 列表 ========== */
+#wemd ul,
+#wemd ol {
+    margin: var(--wemd-paragraph-margin) 0;
+    padding-left: 24px;
+}
+#wemd ul { list-style-type: disc; }
+#wemd ol { list-style-type: decimal; }
+#wemd li section {
+    margin: var(--wemd-list-spacing) 0;
+    color: var(--wemd-text-color);
+    line-height: var(--wemd-line-height);
+}
+#wemd ul ul { list-style-type: circle; margin-top: 6px; }
+#wemd ol ol { list-style-type: lower-alpha; }
+#wemd ul li::marker,
+#wemd ol li::marker { color: var(--wemd-list-marker-color); }
+#wemd ul ul li::marker,
+#wemd ol ol li::marker { color: var(--wemd-list-marker-color-l2); }
+
+/* ========== 链接 ========== */
+#wemd a {
+    color: var(--wemd-link-color);
+    text-decoration: none;
+    border-bottom: 1.5px solid rgba(232, 93, 142, 0.3);
+    transition: all 0.2s;
+}
+#wemd a:hover {
+    border-bottom-color: var(--wemd-link-color);
+}
+
+/* ========== 文本样式 ========== */
+#wemd strong { font-weight: 700; color: #3d2038; }
+#wemd em { font-style: italic; color: var(--wemd-italic-color); }
+#wemd em strong { font-weight: 700; font-style: italic; color: #3d2038; }
+#wemd mark {
+    background: var(--wemd-mark-background);
+    color: var(--wemd-mark-color);
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+#wemd del { text-decoration: line-through; color: var(--wemd-del-color); }
+
+/* ========== 行内代码 ========== */
+#wemd p code,
+#wemd li code {
+    color: var(--wemd-inline-code-color);
+    background: var(--wemd-inline-code-background);
+    padding: 2px 8px;
+    margin: 0 3px;
+    border-radius: 6px;
+    font-size: calc(var(--wemd-font-size) - 2px);
+    font-family: "SF Mono", "Courier New", monospace;
+}
+
+/* ========== 代码块 ========== */
+#wemd pre code.hljs {
+    display: block;
+    padding: 20px;
+    background: #2d1e28;
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    font-family: "SF Mono", "Consolas", "Monaco", monospace;
+    overflow-x: auto;
+    white-space: pre;
+    min-width: max-content;
+    border: 1px solid rgba(232, 93, 142, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+#wemd pre code:not(.hljs) {
+    color: #e0c0d0;
+    background: #2d1e28;
+    border-radius: 16px;
+    border: 1px solid rgba(232, 93, 142, 0.15);
+}
+
+/* ========== 图片 ========== */
+#wemd img {
+    display: block;
+    margin: var(--wemd-image-margin) auto;
+    max-width: 100%;
+    border-radius: var(--wemd-image-border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+#wemd figcaption {
+    margin-top: 10px;
+    text-align: center;
+    color: var(--wemd-image-caption-color);
+    font-size: var(--wemd-image-caption-font-size);
+}
+
+/* ========== 分割线 ========== */
+#wemd hr {
+    margin: var(--wemd-hr-margin) auto;
+    border: none;
+    height: var(--wemd-hr-height);
+    width: 60%;
+    background: linear-gradient(90deg, transparent, var(--wemd-hr-color), transparent);
+    border-radius: 1px;
+}
+
+/* ========== 表格 ========== */
+#wemd table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 28px 0;
+    font-size: 14px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(255, 107, 138, 0.06);
+}
+#wemd table tr th {
+    background: var(--wemd-table-header-background);
+    color: var(--wemd-table-header-color);
+    padding: 14px 16px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 2px solid var(--wemd-table-border-color);
+}
+#wemd table tr td {
+    padding: 14px 16px;
+    color: var(--wemd-text-color);
+    border-bottom: 1px solid var(--wemd-table-border-color);
+    background: #fff;
+}
+#wemd table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ========== 脚注 ========== */
+#wemd .footnote-word,
+#wemd .footnote-ref {
+    color: #e85d8e;
+}
+#wemd .footnotes-sep {
+    border-top: 1px solid #ffd6e0;
+    padding-top: 20px;
+    margin-top: 40px;
+    font-size: 12px;
+    color: #c0a0b0;
+}
+#wemd .footnote-num {
+    font-weight: 600;
+    color: #e85d8e;
+    margin-right: 4px;
+    font-size: 11px;
+}
+#wemd .footnote-item p {
+    color: #b89bad;
+    font-size: 12px;
+    margin: 4px 0;
+}
+
+/* ========== 公式 ========== */
+#wemd .block-equation svg,
+#wemd .katex-block svg { max-width: 100% !important; }
+#wemd .inline-equation svg,
+#wemd .katex-inline svg { max-width: 100%; vertical-align: middle; }
+
+/* ========== 提示块 ========== */
+#wemd .callout {
+    margin: 28px 0;
+    padding: 20px 24px;
+    background: #fff9fb;
+    border-radius: 16px;
+    border: 1px solid #ffd6e0;
+}
+#wemd .callout-title {
+    font-weight: 600;
+    color: #e85d8e;
+    margin-bottom: 8px;
+}
+#wemd .callout-note { border-left: 4px solid #e85d8e; }
+#wemd .callout-tip { border-left: 4px solid #f0a0b8; }
+#wemd .callout-important { border-left: 4px solid #ff6b8a; }
+#wemd .callout-warning { border-left: 4px solid #f5a623; }
+#wemd .callout-caution { border-left: 4px solid #e74c3c; }
+
+/* ========== Imageflow ========== */
+#wemd .imageflow-layer1 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    border: 0px none;
+    padding: 0px;
+    overflow: hidden;
+}
+#wemd .imageflow-layer2 {
+    white-space: nowrap;
+    width: 100%;
+    overflow-x: scroll;
+}
+#wemd .imageflow-layer3 {
+    display: inline-block;
+    word-wrap: break-word;
+    white-space: normal;
+    vertical-align: top;
+    width: 80%;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+#wemd .imageflow-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+#wemd .imageflow-caption {
+    text-align: center;
+    color: #b89bad;
+}
