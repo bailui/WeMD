@@ -29,3 +29,5 @@ export * from "./caramel-gold";
 export * from "./cherry-red";
 export * from "./ai-tool-style";
 export * from "./open-source-diary";
+export * from "./ai-tool-style-light";
+export * from "./open-source-diary-light";

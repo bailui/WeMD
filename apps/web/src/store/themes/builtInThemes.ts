@@ -33,6 +33,8 @@ import {
   cherryRedTheme,
   aiToolStyleTheme,
   openSourceDiaryTheme,
+  aiToolStyleLightTheme,
+  openSourceDiaryLightTheme,
 } from "@wemd/core";
 
 // 从 ThemeDesigner 导入共享类型（解决类型重复定义问题）
@@ -294,6 +296,22 @@ export const builtInThemes: CustomTheme[] = [
     id: "open-source-diary",
     name: "📰 开源日记",
     css: basicTheme + "\n" + openSourceDiaryTheme + "\n" + codeGithubTheme,
+    isBuiltIn: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "ai-tool-style-light",
+    name: "☀️ AI工具风·亮",
+    css: basicTheme + "\n" + aiToolStyleLightTheme + "\n" + codeGithubTheme,
+    isBuiltIn: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "open-source-diary-light",
+    name: "☀️ 开源日记·亮",
+    css: basicTheme + "\n" + openSourceDiaryLightTheme + "\n" + codeGithubTheme,
     isBuiltIn: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
