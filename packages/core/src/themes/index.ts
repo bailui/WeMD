@@ -28,3 +28,4 @@ export * from "./mauve-purple";
 export * from "./caramel-gold";
 export * from "./cherry-red";
 export * from "./ai-tool-style";
+export * from "./open-source-diary";
