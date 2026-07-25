@@ -6,6 +6,8 @@ export const aiToolStyleTheme = `/* WeMD Theme: AI工具风 · Dark Card Style *
     font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
     color: #999;
     background: #191919;
+    background-image: url(data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9JzI0JyBoZWlnaHQ9JzI0JyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPgogIDxkZWZzPjxwYXR0ZXJuIGlkPSdnJyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHBhdHRlcm5Vbml0cz0ndXNlclNwYWNlT25Vc2UnPgogICAgPHBhdGggZD0nTTEyIDBMMjQgMTJMMTIgMjRMMCAxMlonIGZpbGw9J25vbmUnIHN0cm9rZT0ncmdiYSgxNDUsMTA5LDIxMywwLjA1KScgc3Ryb2tlLXdpZHRoPScwLjUnLz4KICA8L3BhdHRlcm4+PC9kZWZzPgogIDxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbGw9J3VybCgjZyknLz4KPC9zdmc+);
+    background-repeat: repeat;
     word-break: break-word;
 }
 
