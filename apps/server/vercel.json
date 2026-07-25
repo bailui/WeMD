@@ -1,0 +1,13 @@
+{
+  "redirects": [
+    { "source": "/", "destination": "/api", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" }
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "dist/**"
+    }
+  }
+}
