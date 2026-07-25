@@ -35,6 +35,8 @@ import {
   openSourceDiaryTheme,
   aiToolStyleLightTheme,
   openSourceDiaryLightTheme,
+  openSourceDiaryOrangeTheme,
+  openSourceDiaryOrangeLightTheme,
 } from "@wemd/core";
 
 // 从 ThemeDesigner 导入共享类型（解决类型重复定义问题）
@@ -312,6 +314,28 @@ export const builtInThemes: CustomTheme[] = [
     id: "open-source-diary-light",
     name: "☀️ 开源日记·亮",
     css: basicTheme + "\n" + openSourceDiaryLightTheme + "\n" + codeGithubTheme,
+    isBuiltIn: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "open-source-diary-orange",
+    name: "🍊 开源日记·橙",
+    css:
+      basicTheme + "\n" + openSourceDiaryOrangeTheme + "\n" + codeGithubTheme,
+    isBuiltIn: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "open-source-diary-orange-light",
+    name: "🍊 开源日记·橙·亮",
+    css:
+      basicTheme +
+      "\n" +
+      openSourceDiaryOrangeLightTheme +
+      "\n" +
+      codeGithubTheme,
     isBuiltIn: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),

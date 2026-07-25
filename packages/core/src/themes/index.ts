@@ -31,3 +31,5 @@ export * from "./ai-tool-style";
 export * from "./open-source-diary";
 export * from "./ai-tool-style-light";
 export * from "./open-source-diary-light";
+export * from "./open-source-diary-orange";
+export * from "./open-source-diary-orange-light";
