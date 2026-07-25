@@ -1,156 +1,259 @@
-export const openSourceDiaryLightTheme = `/* WeMD Theme: 开源日记 · Light Serif Reading */
+export const openSourceDiaryLightTheme = `/* WeMD Theme: 开源日记 · Light Refined */
 #wemd {
-    padding: 28px 20px;
+    padding: 32px 24px;
     max-width: 677px;
     margin: 0 auto;
-    font-family: "Songti SC", "SimSun", "STSong", "Georgia", "PingFang SC", serif;
-    color: #555;
-    background: #fafaf8;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, "PingFang SC", serif;
+    color: #4a4a50;
+    background: #fdfdfa;
     word-break: break-word;
 }
 
 #wemd p {
-    margin: 22px 0;
-    line-height: 1.75;
+    margin: 24px 0;
+    line-height: 1.85;
     text-align: left;
-    color: #555;
+    color: #4a4a50;
     font-size: 15px;
-    font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
     letter-spacing: 1.5px;
 }
 
 #wemd h1 {
-    margin: 16px 0 24px;
+    margin: 8px 0 32px;
     text-align: left;
+    border-top: 1px solid #e8e8e0;
+    padding-top: 32px;
 }
 #wemd h1 .content {
     font-size: 22px;
     font-weight: 400;
-    color: #222;
-    font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif;
+    color: #1a1a20;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
     letter-spacing: 2px;
+    line-height: 1.5;
 }
 #wemd h1 .prefix,
 #wemd h1 .suffix { display: none; }
 
 #wemd h2 {
-    margin: 20px 10px 0 0;
+    margin: 40px 0 10px;
     text-align: left;
 }
 #wemd h2 .content {
-    font-size: 22px;
+    display: block;
+    font-size: 18px;
     font-weight: 700;
-    color: #333;
-    font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif;
+    color: #222228;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    letter-spacing: 1.5px;
+    padding-bottom: 14px;
+    position: relative;
+}
+#wemd h2 .content::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 28px;
+    height: 2px;
+    background: #0E88EB;
+    border-radius: 1px;
+    opacity: 0.6;
 }
 #wemd h2 .prefix,
 #wemd h2 .suffix { display: none; }
 
 #wemd h3 {
-    margin: 24px 0 14px;
+    margin: 32px 0 12px;
     text-align: left;
 }
 #wemd h3 .content {
-    font-size: 18px;
-    font-weight: 700;
-    color: #333;
-    font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #3a3a42;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    letter-spacing: 1.2px;
 }
 #wemd h3 .prefix,
 #wemd h3 .suffix { display: none; }
 
 #wemd h4 {
-    margin: 16px 0 8px;
+    margin: 20px 0 8px;
     text-align: left;
 }
 #wemd h4 .content {
-    font-size: 15px;
-    font-weight: 700;
-    color: #555;
-    font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #999;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
     letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.6;
 }
 #wemd h4 .prefix,
 #wemd h4 .suffix { display: none; }
 
 #wemd .multiquote-1 {
-    margin: 24px 0;
-    padding: 18px 20px;
-    background: #f5f5f0;
-    border-left: 2px solid #ccc;
+    margin: 28px 0;
+    padding: 20px 22px;
+    background: #f6f6f0;
+    border-left: 1px solid #d8d8d0;
     border-radius: 0 4px 4px 0;
 }
-#wemd .multiquote-1 p { margin: 0; color: #777; font-size: 15px; line-height: 1.75; letter-spacing: 1.5px; font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif; }
+#wemd .multiquote-1 p {
+    margin: 0;
+    color: #6a6a70;
+    font-size: 14px;
+    line-height: 1.85;
+    letter-spacing: 1.2px;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    font-style: italic;
+}
 #wemd .multiquote-2 {
-    margin: 20px 0;
-    padding: 14px 18px;
-    background: rgba(14,136,235,0.04);
-    border-left: 2px solid #0E88EB;
+    margin: 24px 0;
+    padding: 16px 20px;
+    background: rgba(14,136,235,0.03);
+    border-left: 1px solid rgba(14,136,235,0.3);
     border-radius: 0 4px 4px 0;
 }
-#wemd .multiquote-2 p { margin: 0; color: #666; font-size: 15px; line-height: 1.75; font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif; letter-spacing: 1.5px; }
+#wemd .multiquote-2 p {
+    margin: 0;
+    color: #6a6a70;
+    font-size: 14px;
+    line-height: 1.85;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    letter-spacing: 1.2px;
+    font-style: italic;
+}
 #wemd .multiquote-3 {
-    margin: 18px 0;
-    padding: 12px 16px;
-    background: #fafaf8;
-    border-left: 2px solid #ddd;
+    margin: 22px 0;
+    padding: 14px 18px;
+    background: #fafaf6;
+    border-left: 1px solid #e0e0d8;
     border-radius: 0 4px 4px 0;
 }
-#wemd .multiquote-3 p { margin: 0; color: #888; font-size: 15px; line-height: 1.75; font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif; letter-spacing: 1.5px; }
+#wemd .multiquote-3 p {
+    margin: 0;
+    color: #888;
+    font-size: 14px;
+    line-height: 1.85;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    letter-spacing: 1.2px;
+    font-style: italic;
+}
 
-#wemd ul, #wemd ol { margin: 18px 0; padding-left: 22px; }
+#wemd ul, #wemd ol { margin: 22px 0; padding-left: 22px; }
 #wemd ul { list-style-type: disc; }
 #wemd ol { list-style-type: decimal; }
-#wemd li section { margin: 6px 0; color: #555; font-size: 15px; font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif; line-height: 1.75; letter-spacing: 1.5px; }
-#wemd ul li::marker, #wemd ol li::marker { color: #999; }
-#wemd ul ul { list-style-type: circle; margin-top: 4px; }
+#wemd li section {
+    margin: 8px 0;
+    color: #4a4a50;
+    font-size: 15px;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    line-height: 1.85;
+    letter-spacing: 1.5px;
+}
+#wemd ul li::marker,
+#wemd ol li::marker { color: #bbb; }
+#wemd ul ul { list-style-type: circle; margin-top: 6px; }
 #wemd ol ol { list-style-type: lower-alpha; }
-#wemd ul ul li::marker, #wemd ol ol li::marker { color: #bbb; }
+#wemd ul ul li::marker,
+#wemd ol ol li::marker { color: #ccc; }
 
-#wemd a { color: #0E88EB; text-decoration: none; border-bottom: 1px solid rgba(14,136,235,0.2); }
-#wemd strong { font-weight: 700; color: #0E88EB; }
-#wemd em { font-style: italic; color: #888; }
-#wemd em strong { font-weight: 700; font-style: italic; color: #0E88EB; }
-#wemd mark { background: rgba(14,136,235,0.08); color: #0E88EB; padding: 1px 6px; border-radius: 3px; }
+#wemd a {
+    color: #0E88EB;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(14,136,235,0.2);
+    transition: border-color 0.2s;
+}
+
+#wemd strong { font-weight: 700; color: #222228; }
+#wemd em { font-style: italic; color: #6a6a70; }
+#wemd em strong { font-weight: 700; font-style: italic; color: #222228; }
+#wemd mark { background: rgba(14,136,235,0.06); color: #0E88EB; padding: 1px 8px; border-radius: 3px; }
 #wemd del { text-decoration: line-through; color: #ccc; }
 
-#wemd p code, #wemd li code {
-    color: #0E88EB; background: rgba(14,136,235,0.06);
-    padding: 2px 6px; margin: 0 2px; border-radius: 3px;
-    font-size: 14px; font-family: "SF Mono", "Courier New", monospace;
-    border: 1px solid rgba(14,136,235,0.12); letter-spacing: 0;
+#wemd p code,
+#wemd li code {
+    color: #0E88EB;
+    background: rgba(14,136,235,0.04);
+    padding: 2px 8px;
+    margin: 0 3px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: "SF Mono", "JetBrains Mono", "Cascadia Code", "Courier New", monospace;
+    border: 1px solid rgba(14,136,235,0.08);
+    letter-spacing: 0;
 }
 
 #wemd pre code.hljs {
-    display: block; padding: 16px;
-    background: #f8f8f6; border-radius: 6px;
-    font-size: 13px; line-height: 1.6;
-    font-family: "SF Mono", "Consolas", "Monaco", monospace;
-    overflow-x: auto; white-space: pre; min-width: max-content;
-    border: 1px solid #eee;
+    display: block;
+    padding: 20px 22px;
+    background: #f6f6f0;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.7;
+    font-family: "SF Mono", "JetBrains Mono", "Cascadia Code", "Consolas", monospace;
+    overflow-x: auto;
+    white-space: pre;
+    min-width: max-content;
+    border: 1px solid #e8e8e0;
 }
-#wemd pre code:not(.hljs) { color: #555; background: #f8f8f6; border-radius: 6px; border: 1px solid #eee; }
+#wemd pre code:not(.hljs) { color: #4a4a50; background: #f6f6f0; border-radius: 6px; border: 1px solid #e8e8e0; }
 
-#wemd img { display: block; margin: 20px 0; max-width: 100%; border-radius: 0 0 5px 5px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-#wemd figcaption { margin-top: 10px; text-align: center; color: #999; font-size: 12px; letter-spacing: 1px; }
+#wemd img { display: block; margin: 28px 0; max-width: 100%; border-radius: 0 0 5px 5px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+#wemd figcaption {
+    margin-top: 12px;
+    text-align: center;
+    color: #aaa;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+}
 
-#wemd hr { margin: 32px auto; border: none; height: 1px; background: #e0e0d8; }
+#wemd hr { margin: 36px auto; border: none; height: 1px; width: 100%; background: #e8e8e0; }
 
-#wemd table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 15px; }
-#wemd table tr th { background: #f5f5f0; color: #333; padding: 10px 14px; font-weight: 600; text-align: left; border-bottom: 2px solid #ddd; font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif; }
-#wemd table tr td { padding: 10px 14px; color: #555; border-bottom: 1px solid #e8e8e0; font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif; letter-spacing: 1.5px; }
+#wemd table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; }
+#wemd table tr th {
+    background: #f6f6f0;
+    color: #3a3a42;
+    padding: 12px 16px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    letter-spacing: 1px;
+}
+#wemd table tr td {
+    padding: 12px 16px;
+    color: #4a4a50;
+    border-bottom: 1px solid #eee;
+    font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    letter-spacing: 1.2px;
+}
+#wemd table tr:last-child td { border-bottom: none; }
 
-#wemd .footnote-word, #wemd .footnote-ref { color: #0E88EB; }
-#wemd .footnotes-sep { border-top: 1px solid #e0e0d8; padding-top: 16px; margin-top: 32px; font-size: 12px; color: #ccc; }
-#wemd .footnote-num { font-weight: 600; color: #0E88EB; margin-right: 4px; font-size: 11px; }
-#wemd .footnote-item p { color: #ccc; font-size: 11px; margin: 4px 0; letter-spacing: 1px; }
+#wemd .footnote-word,
+#wemd .footnote-ref { color: #0E88EB; }
+#wemd .footnotes-sep { border-top: 1px solid #e8e8e0; padding-top: 20px; margin-top: 36px; font-size: 12px; color: #bbb; letter-spacing: 1px; }
+#wemd .footnote-num { font-weight: 600; color: #0E88EB; margin-right: 6px; font-size: 11px; opacity: 0.6; }
+#wemd .footnote-item p { color: #aaa; font-size: 12px; margin: 4px 0; letter-spacing: 1px; }
 
-#wemd .block-equation svg, #wemd .katex-block svg { max-width: 100% !important; }
-#wemd .inline-equation svg, #wemd .katex-inline svg { max-width: 100%; vertical-align: middle; }
+#wemd .block-equation svg,
+#wemd .katex-block svg { max-width: 100% !important; }
+#wemd .inline-equation svg,
+#wemd .katex-inline svg { max-width: 100%; vertical-align: middle; }
 
-#wemd .callout { margin: 20px 0; padding: 14px 18px; background: #fafaf8; border-radius: 4px; }
-#wemd .callout-title { font-weight: 600; font-family: "Songti SC", "SimSun", "STSong", "Georgia", serif; letter-spacing: 1.5px; }
-#wemd .callout-note { border-left: 3px solid #ccc; }
+#wemd .callout {
+    margin: 24px 0;
+    padding: 16px 20px;
+    background: #fdfdf8;
+    border-radius: 4px;
+    border: 1px solid #e8e8e0;
+}
+#wemd .callout-title { font-weight: 600; font-family: "STSong", "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif; letter-spacing: 1.2px; margin-bottom: 8px; }
+#wemd .callout-note { border-left: 3px solid #bbb; }
 #wemd .callout-tip { border-left: 3px solid #0E88EB; }
 #wemd .callout-important { border-left: 3px solid #555; }
 #wemd .callout-warning { border-left: 3px solid #f5a623; }
@@ -161,6 +264,6 @@ export const openSourceDiaryLightTheme = `/* WeMD Theme: 开源日记 · Light S
 #wemd .imageflow-layer1 { margin-top: 1em; margin-bottom: 0.5em; border: 0; padding: 0; overflow: hidden; }
 #wemd .imageflow-layer2 { white-space: nowrap; width: 100%; overflow-x: scroll; }
 #wemd .imageflow-layer3 { display: inline-block; word-wrap: break-word; white-space: normal; vertical-align: top; width: 80%; margin-right: 10px; flex-shrink: 0; }
-#wemd .imageflow-img { display: block; width: 100%; height: auto; max-height: 300px; object-fit: contain; border-radius: 0 0 5px 5px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-#wemd .imageflow-caption { text-align: center; color: #999; font-size: 12px; }
+#wemd .imageflow-img { display: block; width: 100%; height: auto; max-height: 300px; object-fit: contain; border-radius: 0 0 5px 5px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+#wemd .imageflow-caption { text-align: center; color: #aaa; font-size: 12px; }
 `;
