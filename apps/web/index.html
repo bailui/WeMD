@@ -37,6 +37,23 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  <!-- Fix: always default to AI工具风·亮 theme -->
+  <script>
+    (function() {
+      var T = 'ai-tool-style-light';
+      var N = 'AI工具风·亮';
+      var K = 'wemd-selected-theme';
+      var o = Storage.prototype.setItem;
+      Storage.prototype.setItem = function(k, v) {
+        o.call(this, k, v);
+        if (k === K && v.indexOf('default') !== -1) {
+          setTimeout(function() {
+            o.call(localStorage, K, JSON.stringify({id: T, name: N}));
+          }, 50);
+        }
+      };
+    })();
+  </script>
 </body>
 
 </html>
