@@ -33,6 +33,7 @@ import markdownItTaskLists from "markdown-it-task-lists";
 import markdownItCheckboxEmoji from "./plugins/markdown-it-checkbox-emoji";
 import markdownItAttributePolicy from "./plugins/markdown-it-attribute-policy";
 import markdownItSourcePosition from "./plugins/markdown-it-source-position";
+import markdownItCjkEmphasis from "./plugins/markdown-it-cjk-emphasis";
 
 import highlightjs from "./utils/langHighlight";
 
@@ -98,6 +99,7 @@ export const createMarkdownParser = (options: MarkdownParserOptions = {}) => {
       allowedAttributes: ["class", "id", /^data-[\w-]+$/],
     })
     .use(markdownItAttributePolicy)
+    .use(markdownItCjkEmphasis)
     .use(markdownItSpan)
     .use(markdownItTableContainer)
     .use(markdownItMath, {

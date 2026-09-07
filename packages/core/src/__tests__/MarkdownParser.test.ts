@@ -55,6 +55,36 @@ describe("MarkdownParser code block", () => {
   });
 });
 
+describe("MarkdownParser 中文强调边界", () => {
+  it("解析结束标记后紧接中文的粗体", () => {
+    const html = createMarkdownParser().render(
+      "**真实判例⑤（安徽郎溪法院，2026年5月，最典型的一个）：**老张生前给妹妹转过5万。",
+    );
+
+    expect(html).toContain(
+      "<strong>真实判例⑤（安徽郎溪法院，2026年5月，最典型的一个）：</strong>老张生前",
+    );
+    expect(html).not.toContain("**");
+    expect(html).not.toContain("wemd-cjk-emphasis-boundary");
+  });
+
+  it("兼容引用和正文中的中文粗体，同时不改写行内代码", () => {
+    const html = createMarkdownParser().render(
+      [
+        "> 这是**借贷合意：**必须证明的内容。",
+        "",
+        "正文**关键结论：**没有借条不代表一定败诉。",
+        "",
+        "`**代码示例：**正文`",
+      ].join("\n"),
+    );
+
+    expect(html).toContain("<strong>借贷合意：</strong>必须证明");
+    expect(html).toContain("<strong>关键结论：</strong>没有借条");
+    expect(html).toContain("<code>**代码示例：**正文</code>");
+  });
+});
+
 describe("MarkdownParser 预览源位置", () => {
   const markdown = [
     "# 标题",
