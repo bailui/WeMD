@@ -72,6 +72,37 @@ describe("built-in themes", () => {
     }
   });
 
+  it("保留全部 14 款白鹿自定义内置主题", () => {
+    const expectedThemes = [
+      ["soft-pink-dream", "🎀 奶油粉白"],
+      ["warm-apricot", "🍑 暖杏治愈"],
+      ["sakura-pink", "🌸 樱花粉"],
+      ["mint-green", "🌿 薄荷绿"],
+      ["sky-blue", "☁️ 天空蓝"],
+      ["mauve-purple", "💜 锦葵紫"],
+      ["caramel-gold", "🍮 焦糖金"],
+      ["cherry-red", "🍒 樱桃红"],
+      ["ai-tool-style", "🛠️ AI工具风"],
+      ["ai-tool-style-light", "☀️ AI工具风·亮"],
+      ["open-source-diary", "📰 开源日记"],
+      ["open-source-diary-light", "☀️ 开源日记·亮"],
+      ["open-source-diary-orange", "🍊 开源日记·橙"],
+      ["open-source-diary-orange-light", "🍊 开源日记·橙·亮"],
+    ] as const;
+
+    for (const [id, name] of expectedThemes) {
+      const theme = builtInThemes.find((item) => item.id === id);
+      expect(theme, `${name} 应继续保留`).toBeTruthy();
+      expect(theme?.name).toBe(name);
+      expect(theme?.isSelectable).not.toBe(false);
+      expect(theme?.css).toContain("#wemd");
+    }
+
+    expect(new Set(builtInThemes.map((theme) => theme.id)).size).toBe(
+      builtInThemes.length,
+    );
+  });
+
   it("深色代码块主题使用可读的深色语法高亮配色", () => {
     const darkCodeThemeIds = [
       "modern-editorial",

@@ -25,7 +25,7 @@ describe("resolveNewArticleThemeSnapshot", () => {
     });
   });
 
-  it("主题不存在时回退默认主题", () => {
+  it("主题不存在时回退到 AI 工具风亮色主题", () => {
     const result = resolveNewArticleThemeSnapshot(
       {
         themeId: "deleted-theme",
@@ -35,6 +35,11 @@ describe("resolveNewArticleThemeSnapshot", () => {
       [{ id: "default", name: "默认主题" }],
     );
 
+    expect(result).toEqual({
+      themeId: "ai-tool-style-light",
+      themeName: "☀️ AI工具风·亮",
+      customCSS: "",
+    });
     expect(result).toEqual(DEFAULT_NEW_ARTICLE_THEME);
   });
 });

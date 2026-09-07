@@ -16,8 +16,8 @@ export interface NewArticleThemeSnapshot {
 }
 
 export const DEFAULT_NEW_ARTICLE_THEME: NewArticleThemeSnapshot = {
-  themeId: "default",
-  themeName: "默认主题",
+  themeId: "ai-tool-style-light",
+  themeName: "☀️ AI工具风·亮",
   customCSS: "",
 };
 

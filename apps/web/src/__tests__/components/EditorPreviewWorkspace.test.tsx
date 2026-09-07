@@ -6,8 +6,15 @@ vi.mock("../../components/Editor/MarkdownEditor", () => ({
   MarkdownEditor: () => <div>编辑器</div>,
 }));
 
+const { markdownPreviewPropsMock } = vi.hoisted(() => ({
+  markdownPreviewPropsMock: vi.fn(),
+}));
+
 vi.mock("../../components/Preview/MarkdownPreview", () => ({
-  MarkdownPreview: () => <div>预览区</div>,
+  MarkdownPreview: (props: unknown) => {
+    markdownPreviewPropsMock(props);
+    return <div>预览区</div>;
+  },
 }));
 
 describe("编辑器与预览工作区", () => {
@@ -19,11 +26,25 @@ describe("编辑器与预览工作区", () => {
         store.set(key, String(value));
       }),
     });
+    markdownPreviewPropsMock.mockClear();
   });
 
-  afterEach(() => vi.unstubAllGlobals());
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+  });
 
-  it("默认提供可调分隔条并持久化键盘调整后的比例", async () => {
+  it("向预览组件传递滚动容器注册回调", () => {
+    render(<EditorPreviewWorkspace loading={false} />);
+
+    expect(markdownPreviewPropsMock).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        onScrollContainerChange: expect.any(Function),
+      }),
+    );
+  });
+
+  it("默认提供可调分隔条并持久化键盘调整后的像素宽度", async () => {
     render(<EditorPreviewWorkspace loading={false} />);
 
     const separator = screen.getByRole("separator", {
@@ -35,9 +56,18 @@ describe("编辑器与预览工作区", () => {
     fireEvent.keyDown(separator, { key: "ArrowLeft" });
 
     await waitFor(() => {
-      expect(
-        Number(localStorage.getItem("wemd-editor-pane-ratio")),
-      ).toBeCloseTo(0.56);
+      const stored = Number(localStorage.getItem("wemd-editor-pane-width"));
+      expect(Number.isFinite(stored)).toBe(true);
+      expect(stored).toBeGreaterThanOrEqual(340);
     });
+  });
+
+  it("移动布局不挂载分隔条或写入桌面分栏偏好", () => {
+    render(<EditorPreviewWorkspace loading={false} mobileView="editor" />);
+
+    expect(
+      screen.queryByRole("separator", { name: "调整编辑器与预览宽度" }),
+    ).not.toBeInTheDocument();
+    expect(localStorage.setItem).not.toHaveBeenCalled();
   });
 });

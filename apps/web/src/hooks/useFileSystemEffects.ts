@@ -7,6 +7,7 @@ import {
   applyMarkdownFileMeta,
   stripMarkdownExtension,
 } from "../utils/markdownFileMeta";
+import { DEFAULT_NEW_ARTICLE_THEME } from "../utils/newArticleTheme";
 import {
   flattenFiles,
   LAST_FILE_KEY,
@@ -26,6 +27,7 @@ interface UseFileSystemEffectsParams {
   themeName: string;
   isRestoring: boolean;
   isDirty: boolean;
+  isLoading: boolean;
   lastSavedContent: string;
   loadWorkspace: (path: string) => Promise<void>;
   refreshFiles: (dir?: string) => Promise<void>;
@@ -73,6 +75,7 @@ export function useFileSystemEffects({
   themeName,
   isRestoring,
   isDirty,
+  isLoading,
   lastSavedContent,
   loadWorkspace,
   refreshFiles,
@@ -122,7 +125,7 @@ export function useFileSystemEffects({
 
     setCurrentFile(null);
     setMarkdown("");
-    useThemeStore.getState().selectTheme("default");
+    useThemeStore.getState().selectTheme(DEFAULT_NEW_ARTICLE_THEME.themeId);
     setIsDirty(false);
     setLastSavedContent("");
 
@@ -197,9 +200,11 @@ export function useFileSystemEffects({
     if (!adapter || !storageReady || storageType !== "filesystem") return;
 
     const scheduleRefresh = () => {
+      if (isLoading) return;
       if (focusRefreshTimer.current) clearTimeout(focusRefreshTimer.current);
       focusRefreshTimer.current = setTimeout(() => {
         focusRefreshTimer.current = null;
+        if (isLoading) return;
         void refreshFilesRef.current();
       }, 500);
     };
@@ -221,7 +226,7 @@ export function useFileSystemEffects({
         focusRefreshTimer.current = null;
       }
     };
-  }, [enabled, electron, adapter, storageReady, storageType]);
+  }, [enabled, electron, adapter, storageReady, storageType, isLoading]);
 
   useEffect(() => {
     if (!enabled) return;

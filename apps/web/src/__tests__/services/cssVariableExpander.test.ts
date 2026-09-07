@@ -27,6 +27,53 @@ describe("expandCSSVariables", () => {
     expect(result).toContain("font-size: 14px");
   });
 
+  it("removes custom properties that follow comments in the same rule block", () => {
+    const css = `
+      #wemd {
+        /* 页面布局 */
+        --wemd-page-padding: 20px;
+        /* 背景 */
+        --wemd-grid-color: rgba(50, 0, 0, 0.05);
+        padding: 30px var(--wemd-page-padding);
+        background-image: linear-gradient(90deg, var(--wemd-grid-color) 1px, transparent 1px);
+      }
+    `;
+    const result = expandCSSVariables(css);
+
+    expect(result).toContain("padding: 30px 20px");
+    expect(result).toContain("rgba(50, 0, 0, 0.05) 1px");
+    expect(result).not.toMatch(/--[\w-]+\s*:/);
+  });
+
+  it("ignores semicolons inside comments when removing custom properties", () => {
+    const css = `
+      #wemd {
+        /* 页面布局；英文分隔符也允许 ; spacing */
+        --wemd-page-padding: 20px;
+        padding: 30px var(--wemd-page-padding);
+      }
+    `;
+    const result = expandCSSVariables(css);
+
+    expect(result).toContain("padding: 30px 20px");
+    expect(result).not.toMatch(/--[\w-]+\s*:/);
+  });
+
+  it("preserves semicolons inside quoted custom property values", () => {
+    const css = `
+      #wemd {
+        --wemd-data-label: "grid;paper";
+      }
+      #wemd::before {
+        content: var(--wemd-data-label);
+      }
+    `;
+    const result = expandCSSVariables(css);
+
+    expect(result).toContain('content: "grid;paper"');
+    expect(result).not.toMatch(/--[\w-]+\s*:/);
+  });
+
   it("removes empty rule blocks after stripping declarations", () => {
     const css = `
       #wemd { --wemd-font-size: 14px; }
@@ -114,5 +161,48 @@ describe("expandCSSVariables", () => {
     expect(result).toContain("color: #333");
     expect(result).toContain("overflow-wrap: break-word");
     expect(result).not.toMatch(/--wemd-font-size\s*:/);
+  });
+
+  it("ignores braces inside comments when parsing rule blocks", () => {
+    const css = `
+      #wemd {
+        /* group { vars } */
+        --grid-color: red;
+        background: var(--grid-color);
+      }
+    `;
+    const result = expandCSSVariables(css);
+
+    expect(result).toContain("background: red");
+    expect(result).not.toContain("var(");
+    expect(result).not.toMatch(/--grid-color\s*:/);
+  });
+
+  it("ignores braces inside strings when parsing rule blocks", () => {
+    const css = `
+      #wemd { --label: "grid;paper"; }
+      #wemd::before { content: "{"; }
+      #wemd::after { content: "}"; }
+    `;
+    const result = expandCSSVariables(css);
+
+    expect(result).toContain('content: "{"');
+    expect(result).toContain('content: "}"');
+    expect(result).not.toMatch(/--label\s*:/);
+  });
+
+  it("keeps rule blocks intact when braces appear in data URIs", () => {
+    const css = `
+      .wemd-icon {
+        background: url("data:image/svg+xml;utf8,<svg>{}</svg>");
+        --wemd-icon-size: 2px;
+        padding: var(--wemd-icon-size);
+      }
+    `;
+    const result = expandCSSVariables(css);
+
+    expect(result).toContain('url("data:image/svg+xml;utf8,<svg>{}</svg>")');
+    expect(result).toContain("padding: 2px");
+    expect(result).not.toMatch(/--wemd-icon-size\s*:/);
   });
 });

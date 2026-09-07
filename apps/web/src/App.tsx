@@ -4,6 +4,10 @@ import { Toaster } from "react-hot-toast";
 import { Header } from "./components/Header/Header";
 import { FileSidebar } from "./components/Sidebar/FileSidebar";
 import { EditorPreviewWorkspace } from "./components/Workspace/EditorPreviewWorkspace";
+import {
+  DEFAULT_MIN_PREVIEW_WIDTH,
+  getDesktopAppMinWidth,
+} from "./components/Workspace/useSplitPane";
 import { useFileSystem } from "./hooks/useFileSystem";
 import { useMobileView } from "./hooks/useMobileView";
 import { MobileToolbar } from "./components/common/MobileToolbar";
@@ -12,7 +16,7 @@ import "./styles/global.css";
 import "./App.css";
 
 import { useStorageContext } from "./storage/StorageContext";
-import { Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { useHistoryStore } from "./store/historyStore";
 import { useFileStore } from "./store/fileStore";
 import { platform } from "./lib/platformAdapter";
@@ -36,6 +40,9 @@ const UpdateModal = lazy(() =>
   })),
 );
 import { MobileThemeSelector } from "./components/Theme/MobileThemeSelector";
+import { WorkspaceThemeMergePrompt } from "./components/Theme/WorkspaceThemeMergePrompt";
+import { useThemeStore } from "./store/themeStore";
+import { createWorkspaceThemeBackend } from "./services/theme/themeStorageBackend";
 
 interface UpdateEventData {
   latestVersion: string;
@@ -56,9 +63,10 @@ interface ElectronUpdateAPI {
 
 function App() {
   const { workspacePath, saveFile } = useFileSystem({ enableEffects: true });
-  const { type: storageType, ready } = useStorageContext();
+  const { adapter, type: storageType, ready } = useStorageContext();
   const historyLoading = useHistoryStore((state) => state.loading);
   const fileLoading = useFileStore((state) => state.isLoading);
+  const workspaceRevision = useFileStore((state) => state.workspaceRevision);
   const {
     isMobile: isMobileScreen,
     activeView,
@@ -68,6 +76,19 @@ function App() {
   const copyToWechat = useEditorStore((state) => state.copyToWechat);
   const copyAsHtml = useEditorStore((state) => state.copyAsHtml);
   const [showThemePanel, setShowThemePanel] = useState(false);
+
+  // 自定义主题真源在工作区文件夹，副作用单点启用
+  useEffect(() => {
+    const backend = createWorkspaceThemeBackend({
+      storageType,
+      storageReady: ready,
+      adapter,
+      workspacePath,
+    });
+    const themeStore = useThemeStore.getState();
+    themeStore.setWorkspaceThemeBackend(backend);
+    if (backend) void themeStore.loadWorkspaceThemes();
+  }, [adapter, ready, storageType, workspacePath, workspaceRevision]);
 
   // 全局保存快捷键（统一监听器）
   useEffect(() => {
@@ -141,7 +162,7 @@ function App() {
     return saved !== "false";
   });
   const [historyWidth, setHistoryWidth] = useState<string>(
-    showHistory ? "280px" : "0px",
+    showHistory ? "256px" : "0px",
   );
 
   useEffect(() => {
@@ -154,14 +175,29 @@ function App() {
 
   useEffect(() => {
     if (showHistory) {
-      setHistoryWidth("280px");
+      setHistoryWidth("256px");
       return;
     }
     const timer = window.setTimeout(() => setHistoryWidth("0px"), 350);
     return () => window.clearTimeout(timer);
   }, [showHistory]);
 
+  const handleHistoryToggle = () => {
+    if (!showHistory) setHistoryWidth("256px");
+    setShowHistory((visible) => !visible);
+  };
+
   const mainClass = "app-main";
+  const [desktopPreviewMinWidth, setDesktopPreviewMinWidth] = useState(
+    DEFAULT_MIN_PREVIEW_WIDTH,
+  );
+  const appStyle = useMemo<CSSProperties | undefined>(
+    () =>
+      isMobile
+        ? undefined
+        : { minWidth: `${getDesktopAppMinWidth(desktopPreviewMinWidth)}px` },
+    [desktopPreviewMinWidth, isMobile],
+  );
   const mainStyle = useMemo(
     () =>
       ({
@@ -189,7 +225,11 @@ function App() {
   }
 
   return (
-    <div className="app" data-layout-mode={isMobile ? "mobile" : "desktop"}>
+    <div
+      className="app"
+      data-layout-mode={isMobile ? "mobile" : "desktop"}
+      style={appStyle}
+    >
       {/* 更新提示 Modal */}
       {updateInfo && (
         <Suspense fallback={null}>
@@ -214,6 +254,8 @@ function App() {
           />
         </Suspense>
       )}
+      <WorkspaceThemeMergePrompt />
+
       {/* 只在存储上下文完全就绪且确认为 IndexedDB 模式时才渲染 HistoryManager */}
       {!isElectron && ready && storageType === "indexeddb" && (
         <Suspense fallback={null}>
@@ -232,7 +274,7 @@ function App() {
               WebkitBackdropFilter: "blur(12px)",
               color: "#1a1a1a",
               boxShadow: "0 12px 30px -10px rgba(0, 0, 0, 0.12)",
-              borderRadius: "50px",
+              borderRadius: "10px",
               padding: "10px 20px",
               fontSize: "14px",
               fontWeight: 500,
@@ -241,8 +283,8 @@ function App() {
             },
             success: {
               iconTheme: {
-                primary: "#07c160",
-                secondary: "#fff",
+                primary: "var(--accent-primary)",
+                secondary: "var(--on-accent)",
               },
               duration: 2000,
             },
@@ -256,20 +298,23 @@ function App() {
           }}
         />
         <Header />
-        <button
-          className={`history-toggle ${showHistory ? "" : "is-collapsed"}`}
-          onClick={() => setShowHistory((prev) => !prev)}
-          aria-label={showHistory ? "隐藏列表" : "显示列表"}
-        >
-          <span className="sr-only">
-            {showHistory ? "隐藏列表" : "显示列表"}
-          </span>
-        </button>
         <main
           className={mainClass}
           style={mainStyle}
           data-show-history={showHistory}
         >
+          <button
+            className={`history-toggle ${showHistory ? "" : "is-collapsed"}`}
+            onClick={handleHistoryToggle}
+            aria-label={showHistory ? "隐藏文件栏" : "显示文件栏"}
+            title={showHistory ? "隐藏文件栏" : "显示文件栏"}
+          >
+            {showHistory ? (
+              <ChevronLeft size={16} />
+            ) : (
+              <ChevronRight size={16} />
+            )}
+          </button>
           <div
             className={`history-pane ${showHistory ? "is-visible" : "is-hidden"}`}
             aria-hidden={!showHistory}
@@ -299,6 +344,7 @@ function App() {
               (historyLoading && !isElectron && storageType === "indexeddb")
             }
             mobileView={isMobile ? activeView : undefined}
+            onPreviewMinimumWidthChange={setDesktopPreviewMinWidth}
           />
 
           {/* 移动端底部工具栏 */}

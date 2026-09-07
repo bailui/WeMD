@@ -110,7 +110,7 @@
 .option-btn.active {
   background: var(--accent-primary);
   border-color: var(--accent-primary);
-  color: white;
+  color: var(--on-accent);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -229,7 +229,7 @@
 .subtab.active {
   background: var(--accent-primary);
   border-color: var(--accent-primary);
-  color: white;
+  color: var(--on-accent);
 }
 
 /* 开关行 */
@@ -243,51 +243,6 @@
 .designer-field-row span {
   font-size: 13px;
   color: var(--text-primary);
-}
-
-/* 开关 */
-.designer-switch {
-  position: relative;
-  width: 40px;
-  height: 22px;
-}
-
-.designer-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.switch-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--border-light);
-  border-radius: 11px;
-  transition: 0.2s;
-}
-
-.switch-slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.2s;
-}
-
-.designer-switch input:checked + .switch-slider {
-  background-color: var(--accent-primary);
-}
-
-.designer-switch input:checked + .switch-slider:before {
-  transform: translateX(18px);
 }
 
 /* 自定义取色器弹窗 */
@@ -396,7 +351,7 @@
   width: 100%;
   padding: 6px;
   background: var(--accent-primary);
-  color: white;
+  color: var(--on-accent);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -437,7 +392,7 @@
   color: var(--text-secondary);
 }
 
-.compact-switch .designer-switch {
+.compact-switch .wemd-switch {
   transform: scale(0.85);
   transform-origin: right center;
 }
@@ -503,7 +458,7 @@
 
 .level-group .option-btn.active {
   background: var(--accent-primary);
-  color: white;
+  color: var(--on-accent);
 }
 
 /* 移除之前的无效 mini 样式 */

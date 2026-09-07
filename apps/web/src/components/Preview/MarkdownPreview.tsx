@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useCallback, useEffect, useState, useRef, useMemo } from "react";
 import mermaid from "mermaid";
 import { createMarkdownParser, processHtml } from "@wemd/core";
 import { useEditorStore } from "../../store/editorStore";
 import { useThemeStore } from "../../store/themeStore";
 import { useUITheme } from "../../hooks/useUITheme";
-import { hasMathFormula, renderMathInElement } from "../../utils/katexRenderer";
+// 公式由 packages/core 的 markdown-it-math 在解析期完成渲染，这里只需要样式
+import "katex/dist/katex.min.css";
 import { convertLinksToFootnotes } from "../../utils/linkFootnote";
 import {
   getPublishingPreference,
@@ -16,6 +17,7 @@ import {
 } from "../../utils/mermaidConfig";
 import { renderTableBlocksForPreview } from "../../services/wechatTableRenderer";
 import {
+  shouldSnapToScrollEdge,
   subscribeScrollIntent,
   type ScrollSyncAdapter,
 } from "../Workspace/editorPreviewScrollSync";
@@ -28,6 +30,7 @@ import "./MarkdownPreview.css";
 
 interface MarkdownPreviewProps {
   onScrollSyncReady?: (adapter: ScrollSyncAdapter | null) => void;
+  onScrollContainerChange?: (container: HTMLDivElement | null) => void;
 }
 
 const collectAnchors = (
@@ -54,7 +57,10 @@ const collectAnchors = (
   });
 };
 
-export function MarkdownPreview({ onScrollSyncReady }: MarkdownPreviewProps) {
+export function MarkdownPreview({
+  onScrollSyncReady,
+  onScrollContainerChange,
+}: MarkdownPreviewProps) {
   const { markdown } = useEditorStore();
   const { themeId: theme, customCSS, getThemeCSS } = useThemeStore();
   const uiTheme = useUITheme((state) => state.theme);
@@ -66,8 +72,17 @@ export function MarkdownPreview({ onScrollSyncReady }: MarkdownPreviewProps) {
     getPublishingPreference("tableWrap"),
   );
   const previewRef = useRef<HTMLDivElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  // 锚点缓存跨 html 变化保留在 ref 上，内容变了只置空、不重建 adapter
+  const anchorCacheRef = useRef<ScrollAnchor[] | null>(null);
   const mermaidRenderIdRef = useRef(0);
+  const registerScrollContainer = useCallback(
+    (container: HTMLDivElement | null) => {
+      scrollContainerRef.current = container;
+      onScrollContainerChange?.(container);
+    },
+    [onScrollContainerChange],
+  );
 
   // 获取当前主题对象（注意与 line 25 的 themeId 区分）
   const currentTheme = useThemeStore(
@@ -111,28 +126,6 @@ export function MarkdownPreview({ onScrollSyncReady }: MarkdownPreviewProps) {
     uiTheme,
     linkToFootnoteEnabled,
   ]);
-
-  // KaTeX 渲染：轻量级、快速，解决内存问题
-  // MathJax 仅在复制到微信时使用
-  useEffect(() => {
-    if (!previewRef.current || !html) {
-      return;
-    }
-
-    // 检测是否包含数学公式
-    if (!hasMathFormula(markdown)) {
-      return; // 无公式，跳过渲染
-    }
-
-    // 延迟渲染，避免频繁触发
-    const timer = setTimeout(() => {
-      if (previewRef.current) {
-        renderMathInElement(previewRef.current);
-      }
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [html, markdown]);
 
   const mermaidTheme = designerVars?.mermaidTheme || "base";
   const mermaidConfigKey = useMemo(() => mermaidTheme, [mermaidTheme]);
@@ -192,15 +185,17 @@ export function MarkdownPreview({ onScrollSyncReady }: MarkdownPreviewProps) {
     renderTableBlocksForPreview(previewRef.current, tableWrapEnabled);
   }, [html, tableWrapEnabled]);
 
+  // 滚动同步 adapter 的生命周期跟随 DOM 节点，**不能**跟随 html。
+  // 挂 html 依赖会导致每敲一个字符都销毁重建一次 adapter，而注册 preview adapter
+  // 会触发一次 restoreAfterLayoutChange，于是两个面板被反复强制滚动（表现为一直往上跳）。
   useEffect(() => {
     const container = scrollContainerRef.current;
     const root = previewRef.current;
     if (!container || !root) return;
     let scrollSubscriber: () => void = () => undefined;
-    let anchorCache: ScrollAnchor[] | null = null;
     const getAnchors = () => {
-      anchorCache ??= collectAnchors(root, container);
-      return anchorCache;
+      anchorCacheRef.current ??= collectAnchors(root, container);
+      return anchorCacheRef.current;
     };
     const getPosition: ScrollSyncAdapter["getPosition"] = () => {
       const max = Math.max(0, container.scrollHeight - container.clientHeight);
@@ -214,13 +209,14 @@ export function MarkdownPreview({ onScrollSyncReady }: MarkdownPreviewProps) {
       position,
     ) => {
       const max = Math.max(0, container.scrollHeight - container.clientHeight);
-      if (position.sourceLine === null || position.ratio >= 0.999) {
+      const { sourceLine } = position;
+      if (sourceLine === null || shouldSnapToScrollEdge(position)) {
         container.scrollTop = Math.min(Math.max(position.ratio, 0), 1) * max;
         return;
       }
       container.scrollTop = mapSourceLineToScrollTop(
         getAnchors(),
-        position.sourceLine,
+        sourceLine,
         max,
         position.ratio,
       );
@@ -241,7 +237,7 @@ export function MarkdownPreview({ onScrollSyncReady }: MarkdownPreviewProps) {
       subscribeLayoutChange: (listener) => {
         if (typeof ResizeObserver === "undefined") return () => undefined;
         const observer = new ResizeObserver(() => {
-          anchorCache = null;
+          anchorCacheRef.current = null;
           listener();
         });
         observer.observe(root);
@@ -252,7 +248,12 @@ export function MarkdownPreview({ onScrollSyncReady }: MarkdownPreviewProps) {
       container.removeEventListener("scroll", handleScroll);
       onScrollSyncReady?.(null);
     };
-  }, [html, onScrollSyncReady]);
+  }, [onScrollSyncReady]);
+
+  // 内容变化只让锚点失效，不重建 adapter
+  useEffect(() => {
+    anchorCacheRef.current = null;
+  }, [html]);
 
   useEffect(() => {
     return subscribePublishingPreference(
@@ -273,7 +274,7 @@ export function MarkdownPreview({ onScrollSyncReady }: MarkdownPreviewProps) {
       </div>
       <div
         className="preview-container"
-        ref={scrollContainerRef}
+        ref={registerScrollContainer}
         onClick={(e) => {
           const target = e.target as HTMLElement;
           const link = target.closest("a");

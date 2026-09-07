@@ -81,6 +81,15 @@ describe("ThemePanel", () => {
         exportTheme: vi.fn(),
         exportThemeCSS: vi.fn(),
         importTheme: vi.fn().mockResolvedValue(true),
+        workspaceBackend: null,
+        workspaceId: null,
+        pendingLocalOnlyThemes: [],
+        workspaceFileBroken: false,
+        setWorkspaceThemeBackend: vi.fn(),
+        loadWorkspaceThemes: vi.fn().mockResolvedValue(undefined),
+        acceptPendingThemes: vi.fn(),
+        dismissPendingThemes: vi.fn(),
+        snoozePendingThemes: vi.fn(),
       };
       return selector(state);
     });
@@ -125,14 +134,17 @@ describe("ThemePanel", () => {
   it("renders when open", () => {
     render(<ThemePanel open={true} onClose={() => {}} />);
 
-    expect(screen.getByText("主题管理")).toBeInTheDocument();
+    expect(screen.getByText("文章主题")).toBeInTheDocument();
+    expect(
+      screen.getByText("选择、创建或导入公众号排版主题"),
+    ).toBeInTheDocument();
     expect(screen.getByText("新建自定义主题")).toBeInTheDocument();
   });
 
   it("does not render when closed", () => {
     render(<ThemePanel open={false} onClose={() => {}} />);
 
-    expect(screen.queryByText("主题管理")).not.toBeInTheDocument();
+    expect(screen.queryByText("文章主题")).not.toBeInTheDocument();
   });
 
   it("displays built-in and custom themes", () => {

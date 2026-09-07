@@ -42,65 +42,49 @@ const buildCopyCss = (themeCss: string) => {
   return `${expandedCss}\n${katexCss}`;
 };
 
+// 微信不转存 45×13 这类小尺寸 data: URI，保存草稿时会被剥离（#91），故改用托管外链。
+// Mermaid、公式等较大的 data: URI 不受此限制。
+const MAC_SIGN_IMAGE_URL = "https://img.wemd.app/1785143461387_dwk0yi.svg";
+
 const renderMacSignDotsToImages = (container: HTMLElement): void => {
   container.querySelectorAll<HTMLElement>(".mac-sign").forEach((macSign) => {
     const dots = Array.from(macSign.querySelectorAll<HTMLElement>(".mac-dot"));
     if (dots.length === 0) return;
 
-    try {
-      const scale = 2;
-      const dotMetrics = dots.map((dot) => ({
-        color: dot.style.backgroundColor,
-        height: Number.parseFloat(dot.style.height),
-        marginRight: Number.parseFloat(dot.style.marginRight) || 0,
-        marginTop: Number.parseFloat(dot.style.marginTop) || 0,
-        width: Number.parseFloat(dot.style.width),
-      }));
-      const width = dotMetrics.reduce(
-        (total, dot) => total + dot.width + dot.marginRight,
-        0,
-      );
-      const height =
-        Number.parseFloat(macSign.style.height) ||
-        Math.max(...dotMetrics.map((dot) => dot.marginTop + dot.height));
-      if (!width || !height || dotMetrics.some((dot) => !dot.color)) return;
-
-      const canvas = document.createElement("canvas");
-      canvas.width = width * scale;
-      canvas.height = height * scale;
-      const context = canvas.getContext("2d");
-      if (!context) return;
-
-      context.scale(scale, scale);
-      let offsetX = 0;
-      dotMetrics.forEach((dot) => {
-        context.beginPath();
-        context.arc(
-          offsetX + dot.width / 2,
-          dot.marginTop + dot.height / 2,
-          Math.min(dot.width, dot.height) / 2,
-          0,
-          Math.PI * 2,
-        );
-        context.fillStyle = dot.color;
-        context.fill();
-        offsetX += dot.width + dot.marginRight;
+    const dotMetrics = dots.map((dot) => ({
+      height: Number.parseFloat(dot.style.height),
+      marginRight: Number.parseFloat(dot.style.marginRight) || 0,
+      marginTop: Number.parseFloat(dot.style.marginTop) || 0,
+      width: Number.parseFloat(dot.style.width),
+    }));
+    const width = dotMetrics.reduce(
+      (total, dot) => total + dot.width + dot.marginRight,
+      0,
+    );
+    const height =
+      Number.parseFloat(macSign.style.height) ||
+      Math.max(...dotMetrics.map((dot) => dot.marginTop + dot.height));
+    if (!width || !height) {
+      console.warn("Mac Bar 圆点尺寸推导失败，保留 HTML 圆点", {
+        height,
+        width,
       });
-
-      const image = document.createElement("img");
-      image.src = canvas.toDataURL("image/png");
-      image.alt = "";
-      image.width = width;
-      image.height = height;
-      image.style.display = "block";
-      image.style.width = `${width}px`;
-      image.style.height = `${height}px`;
-
-      macSign.removeAttribute("aria-hidden");
-      macSign.replaceChildren(image);
-    } catch (error) {
-      console.warn("Mac Bar PNG 绘制失败，保留 HTML 圆点", error);
+      return;
     }
+
+    const image = document.createElement("img");
+    image.src = MAC_SIGN_IMAGE_URL;
+    image.alt = "";
+    image.width = width;
+    image.height = height;
+    image.style.display = "block";
+    image.style.setProperty("width", `${width}px`, "important");
+    image.style.setProperty("height", `${height}px`, "important");
+    image.style.setProperty("max-width", `${width}px`, "important");
+    image.style.setProperty("max-height", `${height}px`, "important");
+
+    macSign.removeAttribute("aria-hidden");
+    macSign.replaceChildren(image);
   });
 };
 
@@ -110,9 +94,7 @@ const renderMacSignDotsToImages = (container: HTMLElement): void => {
  */
 const convertCheckboxesToEmoji = (html: string): string => {
   // 使用 &nbsp; 确保空格不被微信吞掉
-  // 先替换选中的 checkbox（包含 checked 属性）
   let result = html.replace(/<input[^>]*checked[^>]*>/gi, "✅&nbsp;");
-  // 再替换未选中的 checkbox
   result = result.replace(
     /<input[^>]*type=["']checkbox["'][^>]*>/gi,
     "⬜&nbsp;",
@@ -122,25 +104,108 @@ const convertCheckboxesToEmoji = (html: string): string => {
 
 // ── 剪贴板写入策略 ─────────────────────────────────
 
-const copyViaNativeExecCommand = (container: HTMLElement): boolean => {
-  const selection = window.getSelection();
-  const range = document.createRange();
-  range.selectNodeContents(container);
-  selection?.removeAllRanges();
-  selection?.addRange(range);
-  try {
-    return document.execCommand("copy");
-  } finally {
-    selection?.removeAllRanges();
-  }
-};
-
 const getRenderedPlainText = (container: HTMLElement): string => {
   const innerText = container.innerText;
   if (typeof innerText === "string" && innerText.trim().length > 0) {
     return innerText;
   }
   return container.textContent || "";
+};
+
+const copyViaNativeExecCommand = (
+  container: HTMLElement,
+  exactHtmlTransport: boolean,
+): boolean => {
+  const html = exactHtmlTransport ? container.innerHTML : "";
+  const text = exactHtmlTransport ? getRenderedPlainText(container) : "";
+  const selection = window.getSelection();
+  if (!selection) return false;
+
+  const previousRanges = Array.from(
+    { length: selection.rangeCount },
+    (_, index) => selection.getRangeAt(index).cloneRange(),
+  );
+  const previousActiveElement =
+    document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+  const previousTextControlSelection =
+    previousActiveElement instanceof HTMLInputElement ||
+    previousActiveElement instanceof HTMLTextAreaElement
+      ? {
+          start: previousActiveElement.selectionStart,
+          end: previousActiveElement.selectionEnd,
+          direction: previousActiveElement.selectionDirection,
+        }
+      : null;
+  let payloadWritten = false;
+  let copyEventObserved = false;
+  const handleCopy = (event: Event) => {
+    copyEventObserved = true;
+    if (!exactHtmlTransport) return;
+
+    const clipboardEvent = event as ClipboardEvent;
+    if (!clipboardEvent.clipboardData) return;
+
+    try {
+      clipboardEvent.clipboardData.setData("text/html", html);
+      clipboardEvent.clipboardData.setData("text/plain", text);
+      clipboardEvent.preventDefault();
+      payloadWritten = true;
+    } catch {
+      payloadWritten = false;
+    }
+  };
+
+  document.addEventListener("copy", handleCopy, true);
+  try {
+    const range = document.createRange();
+    range.selectNodeContents(container);
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    // 普通主题沿用浏览器选区序列化；连续背景则只认 copy handler 的精确写入结果。
+    const commandSucceeded = document.execCommand("copy");
+    return exactHtmlTransport
+      ? payloadWritten
+      : commandSucceeded && copyEventObserved;
+  } catch {
+    return false;
+  } finally {
+    document.removeEventListener("copy", handleCopy, true);
+
+    if (previousActiveElement?.isConnected) {
+      try {
+        if (document.activeElement !== previousActiveElement) {
+          previousActiveElement.focus({ preventScroll: true });
+        }
+        if (
+          previousTextControlSelection &&
+          (previousActiveElement instanceof HTMLInputElement ||
+            previousActiveElement instanceof HTMLTextAreaElement) &&
+          previousTextControlSelection.start !== null &&
+          previousTextControlSelection.end !== null
+        ) {
+          previousActiveElement.setSelectionRange(
+            previousTextControlSelection.start,
+            previousTextControlSelection.end,
+            previousTextControlSelection.direction ?? undefined,
+          );
+        }
+      } catch {
+        // 原焦点节点不再支持恢复时继续完成剪贴板回退。
+      }
+    }
+
+    selection.removeAllRanges();
+    previousRanges.forEach((previousRange) => {
+      try {
+        selection.addRange(previousRange);
+      } catch {
+        // 原选区节点已移除时保持空选区，避免复制流程继续失败。
+      }
+    });
+  }
 };
 
 const copyViaElectronClipboard = async (
@@ -205,7 +270,6 @@ export async function copyToWechat(
     );
     const styledHtml = processHtml(materializedHtml, sanitizedCss, true, true);
     const resolvedHtml = resolveInlineStyleVariablesForCopy(styledHtml);
-    // 转换 checkbox 为 emoji，微信不支持 input 标签
     const finalHtml = convertCheckboxesToEmoji(resolvedHtml);
 
     container.innerHTML = finalHtml;
@@ -214,14 +278,14 @@ export async function copyToWechat(
     await renderMermaidBlocks(container);
     await renderTableBlocks(container, getPublishingPreference("tableWrap"));
     renderMacSignDotsToImages(container);
-    normalizeCopyContainer(container);
+    const { requiresExactHtmlTransport } = normalizeCopyContainer(container);
 
     let copied = false;
 
     const preferElectronClipboard = shouldPreferElectronClipboard();
 
     if (!preferElectronClipboard) {
-      copied = copyViaNativeExecCommand(container);
+      copied = copyViaNativeExecCommand(container, requiresExactHtmlTransport);
     }
 
     if (!copied && window.electron?.isElectron) {
@@ -242,10 +306,9 @@ export async function copyToWechat(
     }
 
     if (!copied && preferElectronClipboard) {
-      copied = copyViaNativeExecCommand(container);
+      copied = copyViaNativeExecCommand(container, requiresExactHtmlTransport);
     }
 
-    // 最后回退到 Clipboard API
     if (!copied && navigator.clipboard && window.ClipboardItem) {
       console.warn(
         "[WeMD] native execCommand copy unavailable, fallback to Clipboard API",
@@ -277,7 +340,6 @@ export async function copyToWechat(
         : "已复制，可以直接粘贴至微信公众号",
       {
         duration: 3000,
-        icon: "✅",
       },
     );
   } catch (error) {

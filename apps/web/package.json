@@ -1,7 +1,7 @@
 {
   "name": "@wemd/web",
   "private": true,
-  "version": "1.3.0",
+  "version": "1.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
+    "test:ci": "pnpm run test --run --maxWorkers=1",
+    "test:ui-acceptance": "vitest run src/__tests__/components/EditorUxPolish.test.ts src/__tests__/components/Header.test.tsx src/__tests__/components/HeaderTypography.test.ts src/__tests__/components/MarkdownPreviewResponsive.test.ts src/__tests__/hooks/useMobileView.test.ts src/components/Workspace/useSplitPane.test.ts",
     "test:ui": "vitest --ui"
   },
   "dependencies": {
@@ -17,11 +19,12 @@
     "@codemirror/commands": "^6.10.1",
     "@codemirror/lang-markdown": "^6.5.0",
     "@codemirror/language": "^6.11.3",
+    "@codemirror/language-data": "^6.5.2",
     "@codemirror/search": "^6.5.11",
     "@codemirror/state": "^6.5.2",
     "@codemirror/view": "^6.38.8",
-    "@lezer/markdown": "^1.6.0",
     "@lezer/highlight": "^1.2.3",
+    "@lezer/markdown": "^1.6.0",
     "@uiw/codemirror-theme-github": "^4.25.3",
     "@wemd/core": "workspace:*",
     "codemirror": "^6.0.2",
@@ -55,6 +58,7 @@
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5",
+    "vite-plugin-pwa": "^1.3.0",
     "vitest": "^4.0.16"
   }
 }

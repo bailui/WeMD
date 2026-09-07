@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { useThemeStore } from "./themeStore";
 import { copyToWechat as execCopyToWechat } from "../services/wechatCopyService";
 import { copyAsHtml as execCopyAsHtml } from "../services/htmlCopyService";
+import { DEFAULT_NEW_ARTICLE_THEME } from "../utils/newArticleTheme";
 
 export interface ResetOptions {
   markdown?: string;
@@ -161,12 +162,14 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
     const allThemes = themeStore.getAllThemes();
 
     // 验证主题是否存在
-    let targetTheme = options?.theme ?? "default";
+    let targetTheme = options?.theme ?? DEFAULT_NEW_ARTICLE_THEME.themeId;
 
     const themeExists = allThemes.some((t) => t.id === targetTheme);
     if (!themeExists) {
-      console.warn(`Theme ${targetTheme} not found, falling back to default`);
-      targetTheme = "default";
+      console.warn(
+        `Theme ${targetTheme} not found, falling back to ${DEFAULT_NEW_ARTICLE_THEME.themeId}`,
+      );
+      targetTheme = DEFAULT_NEW_ARTICLE_THEME.themeId;
     }
 
     // 重置编辑器内容

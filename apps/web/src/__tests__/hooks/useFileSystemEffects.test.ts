@@ -3,6 +3,7 @@ import { act, renderHook, waitFor } from "@testing-library/react";
 import type { ElectronAPI } from "../../hooks/useFileSystemHelpers";
 import { useFileSystemEffects } from "../../hooks/useFileSystemEffects";
 import type { StorageAdapter } from "../../storage/StorageAdapter";
+import { useThemeStore } from "../../store/themeStore";
 
 const buildElectronMock = () => {
   let refreshCallback: (() => void) | undefined;
@@ -64,6 +65,7 @@ const buildParams = (
   themeName: "默认主题",
   isRestoring: false,
   isDirty: false,
+  isLoading: false,
   lastSavedContent: "",
   loadWorkspace: vi.fn(async () => {}),
   refreshFiles: vi.fn(async () => {}),
@@ -106,6 +108,21 @@ describe("useFileSystemEffects", () => {
     ) {
       window.localStorage.clear();
     }
+  });
+
+  it("浏览器模式初始化为 AI 工具风亮色主题", async () => {
+    useThemeStore.setState({
+      themeId: "default",
+      themeName: "默认主题",
+      customCSS: "",
+    });
+
+    renderHook(() => useFileSystemEffects(buildParams()));
+
+    await waitFor(() => {
+      expect(useThemeStore.getState().themeId).toBe("ai-tool-style-light");
+      expect(useThemeStore.getState().themeName).toBe("☀️ AI工具风·亮");
+    });
   });
 
   it("单实例下正确注册并清理 Electron 监听器", async () => {
@@ -171,6 +188,30 @@ describe("useFileSystemEffects", () => {
     });
 
     expect(refreshFiles).toHaveBeenCalledTimes(1);
+  });
+
+  it("工作区切换加载中不执行聚焦刷新", async () => {
+    vi.useFakeTimers();
+    const refreshFiles = vi.fn(async () => {});
+    renderHook(() =>
+      useFileSystemEffects(
+        buildParams({
+          adapter: buildAdapterMock(),
+          storageReady: true,
+          storageType: "filesystem",
+          isLoading: true,
+          refreshFiles,
+        }),
+      ),
+    );
+    refreshFiles.mockClear();
+
+    window.dispatchEvent(new Event("focus"));
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(500);
+    });
+
+    expect(refreshFiles).not.toHaveBeenCalled();
   });
 
   it("浏览器文件夹模式下页面恢复可见会刷新文件列表", async () => {

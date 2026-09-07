@@ -1,5 +1,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import { Header } from "../../components/Header/Header";
 import { useWindowControls } from "../../hooks/useWindowControls";
 import { useUITheme } from "../../hooks/useUITheme";
@@ -105,15 +111,18 @@ describe("Header", () => {
   it("renders logo and core elements", () => {
     render(<Header />);
 
-    expect(screen.getByText("WeMD")).toBeInTheDocument();
-    expect(screen.getByText("公众号 Markdown 排版编辑器")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "WeMD Logo" })).toHaveAttribute(
+      "src",
+      "/favicon-dark.svg",
+    );
+    expect(screen.getByText("WeMD")).toHaveClass("logo-text");
     expect(screen.getByText("复制到公众号")).toBeInTheDocument();
   });
 
   it("toggles theme interaction", () => {
     render(<Header />);
 
-    const themeBtn = screen.getByTitle("切换到暗色模式");
+    const themeBtn = screen.getByLabelText("切换到暗色模式");
     fireEvent.click(themeBtn);
     expect(mockSetTheme).toHaveBeenCalledWith("dark");
   });
@@ -130,6 +139,14 @@ describe("Header", () => {
 
     fireEvent.click(screen.getByText("复制 HTML"));
     expect(mockCopyAsHtml).toHaveBeenCalled();
+  });
+
+  it("opens article theme panel from the compact navigation", async () => {
+    render(<Header />);
+
+    fireEvent.click(screen.getByRole("button", { name: "文章主题" }));
+
+    expect(await screen.findByTestId("theme-panel")).toBeInTheDocument();
   });
 
   it("does not render window controls on Web/Mac", () => {
@@ -189,10 +206,76 @@ describe("Header", () => {
 
     fireEvent.click(screen.getByLabelText("隐藏标题栏"));
 
+    const floatingToolbar = document.querySelector(".floating-toolbar");
+    expect(floatingToolbar).not.toBeNull();
     expect(screen.getByLabelText("显示标题栏")).toBeInTheDocument();
     expect(screen.getByLabelText("主题管理")).toBeInTheDocument();
     expect(screen.getByLabelText("图床设置")).toBeInTheDocument();
-    expect(screen.getByLabelText("复制到公众号")).toBeInTheDocument();
+    expect(
+      within(floatingToolbar as HTMLElement).getByRole("button", {
+        name: "复制到公众号",
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it("keeps a window drag region when the header is hidden in Electron", () => {
+    vi.mocked(useWindowControls).mockReturnValue({
+      isElectron: true,
+      isWindows: false,
+      isMac: true,
+      platform: "darwin",
+      minimize: mockMinimize,
+      maximize: mockMaximize,
+      close: mockClose,
+    });
+
+    render(<Header />);
+
+    const hiddenTitlebar = document.querySelector(".hidden-titlebar");
+    expect(hiddenTitlebar).not.toBeNull();
+    expect(hiddenTitlebar).not.toHaveClass("is-active");
+    expect(
+      hiddenTitlebar?.querySelector(".hidden-titlebar-drag-region"),
+    ).not.toBeNull();
+
+    fireEvent.click(screen.getByLabelText("隐藏标题栏"));
+
+    expect(document.querySelector(".hidden-titlebar")).toHaveClass("is-active");
+  });
+
+  it("places Windows controls beside the hidden drag region", () => {
+    vi.mocked(useWindowControls).mockReturnValue({
+      isElectron: true,
+      isWindows: true,
+      isMac: false,
+      platform: "win32",
+      minimize: mockMinimize,
+      maximize: mockMaximize,
+      close: mockClose,
+    });
+
+    render(<Header />);
+    fireEvent.click(screen.getByLabelText("隐藏标题栏"));
+
+    const hiddenTitlebar = document.querySelector(".hidden-titlebar");
+    const controls = hiddenTitlebar?.querySelector(".window-controls-compact");
+    expect(controls).not.toBeNull();
+
+    fireEvent.click(within(controls as HTMLElement).getByLabelText("最小化"));
+    fireEvent.click(within(controls as HTMLElement).getByLabelText("最大化"));
+    fireEvent.click(within(controls as HTMLElement).getByLabelText("关闭"));
+
+    expect(mockMinimize).toHaveBeenCalledOnce();
+    expect(mockMaximize).toHaveBeenCalledOnce();
+    expect(mockClose).toHaveBeenCalledOnce();
+  });
+
+  it("does not render the hidden titlebar outside Electron", () => {
+    render(<Header />);
+
+    fireEvent.click(screen.getByLabelText("隐藏标题栏"));
+
+    expect(document.querySelector(".hidden-titlebar")).toBeNull();
   });
 
   it("persists header visibility to localStorage", async () => {
