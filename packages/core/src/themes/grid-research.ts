@@ -1,24 +1,25 @@
-export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批注与清晰数据层级 */
+export const gridResearchTheme = `/* 方格研究风：冷白研究纸、低对比网格与清晰信息层级 */
 #wemd {
   max-width: 677px;
   margin: 0 auto;
-  padding: 24px 22px;
-  color: #223237;
-  background-color: #f7f3e8;
-  background-image: linear-gradient(#dfe5dc 1px, transparent 1px), linear-gradient(90deg, #dfe5dc 1px, transparent 1px);
-  background-size: 24px 24px;
-  font-family: "Songti SC", "STSong", "PingFang SC", "Microsoft YaHei", serif;
+  padding: 28px 22px;
+  color: #34465a;
+  background-color: #fbfcfe;
+  background-image: linear-gradient(#e6ebf2 1px, transparent 1px), linear-gradient(90deg, #e6ebf2 1px, transparent 1px);
+  background-size: 28px 28px;
+  font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
   font-size: 16px;
-  line-height: 1.85;
-  letter-spacing: 0.018em;
+  line-height: 1.84;
+  letter-spacing: 0.016em;
   word-break: break-word;
 }
 
 #wemd p {
   margin: 0 0 22px;
-  color: #223237;
+  color: #34465a;
+  background-color: transparent;
   font-size: 16px;
-  line-height: 1.85;
+  line-height: 1.84;
   text-align: left;
 }
 
@@ -28,57 +29,57 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
 #wemd h4,
 #wemd h5,
 #wemd h6 {
-  color: #173c3d;
+  color: #24364b;
   font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   text-align: left;
 }
 
 #wemd h1 {
-  margin: 22px 0 42px;
-  padding: 25px 21px 22px;
-  border: 2px solid #173c3d;
-  border-bottom: 7px solid #cc5c35;
-  background-color: #eef2e8;
+  margin: 22px 0 40px;
+  padding: 23px 20px 21px;
+  border: 1px solid #c9d6e3;
+  border-left: 5px solid #4d7296;
+  background-color: #eef4f8;
 }
 
 #wemd h1 .content {
   display: block;
-  color: #173c3d;
-  font-size: 31px;
+  color: #20354c;
+  font-size: 29px;
   font-weight: 800;
-  line-height: 1.35;
-  letter-spacing: 0.025em;
+  line-height: 1.38;
+  letter-spacing: 0.018em;
   text-wrap: balance;
 }
 
 #wemd h2 {
-  margin: 42px 0 21px;
-  padding: 0 0 8px;
-  border-bottom: 2px solid #1b6e70;
-  background-color: #f7f3e8;
+  margin: 40px 0 20px;
+  padding: 0 0 9px;
+  border-bottom: 2px solid #6586a5;
+  background-color: transparent;
 }
 
 #wemd h2 .content {
-  color: #173c3d;
+  color: #24364b;
   font-size: 22px;
   font-weight: 750;
-  line-height: 1.45;
+  line-height: 1.48;
   text-wrap: balance;
 }
 
 #wemd h3 {
-  margin: 31px 0 15px;
+  margin: 31px 0 16px;
   padding: 0;
-  background-color: #f7f3e8;
+  background-color: transparent;
 }
 
 #wemd h3 .content {
   display: inline-block;
-  padding: 4px 10px;
-  border: 1px solid #789293;
-  color: #f7f3e8;
-  background-color: #1b6e70;
-  font-size: 16px;
+  padding: 5px 11px;
+  border: 1px solid #bdccda;
+  color: #315270;
+  background-color: #e9f0f6;
+  font-size: 17px;
   font-weight: 700;
   line-height: 1.5;
   text-wrap: balance;
@@ -87,16 +88,16 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
 #wemd h4,
 #wemd h5,
 #wemd h6 {
-  margin: 28px 0 13px;
+  margin: 27px 0 13px;
   padding-left: 11px;
-  border-left: 3px solid #cc5c35;
-  background-color: #f7f3e8;
+  border-left: 3px solid #7896b2;
+  background-color: transparent;
 }
 
 #wemd h4 .content,
 #wemd h5 .content,
 #wemd h6 .content {
-  color: #36595a;
+  color: #405a73;
   font-size: 16px;
   font-weight: 700;
   line-height: 1.55;
@@ -113,39 +114,37 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
 #wemd h5 .prefix,
 #wemd h5 .suffix,
 #wemd h6 .prefix,
-#wemd h6 .suffix {
-  display: none;
-}
+#wemd h6 .suffix { display: none; }
 
 #wemd strong {
-  color: #124f51;
+  color: #315f86;
   font-weight: 750;
 }
 
 #wemd em,
 #wemd em strong {
-  color: #9b452b;
+  color: #6b5a78;
   font-style: italic;
 }
 
 #wemd s,
 #wemd del {
-  color: #6a5550;
+  color: #8a96a3;
   text-decoration: line-through;
 }
 
 #wemd mark {
   padding: 1px 5px;
-  border-bottom: 2px solid #cc5c35;
-  color: #593426;
-  background-color: #f5d9b9;
+  border-bottom: 2px solid #7698b8;
+  color: #294964;
+  background-color: #dfeaf4;
 }
 
 #wemd a {
-  color: #11666a;
+  color: #386b98;
   font-weight: 650;
   text-decoration: underline;
-  text-decoration-color: #7ea6a5;
+  text-decoration-color: #94afc7;
   text-underline-offset: 0.22em;
 }
 
@@ -153,72 +152,65 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
 #wemd ol {
   margin: 17px 0 24px;
   padding-left: 25px;
-  color: #cc5c35;
+  color: #587b9c;
 }
 
-#wemd ul {
-  list-style-type: square;
-}
-
-#wemd ol {
-  list-style-type: decimal;
-}
+#wemd ul { list-style-type: square; }
+#wemd ol { list-style-type: decimal; }
 
 #wemd li section {
-  margin: 6px 0;
-  color: #223237;
-  font-family: "Songti SC", "STSong", "PingFang SC", serif;
+  margin: 7px 0;
+  color: #34465a;
+  font-size: 16px;
   line-height: 1.78;
 }
 
 #wemd ol > li > section {
-  padding-bottom: 4px;
-  border-bottom: 1px dotted #aab8ae;
+  padding-bottom: 5px;
+  border-bottom: 1px dotted #c0ccd8;
 }
 
-#wemd blockquote {
-  border: none;
-}
+#wemd blockquote { border: none; }
 
 #wemd .multiquote-1 {
-  margin: 29px 0;
+  margin: 28px 0;
   padding: 17px 19px;
-  border: 1px solid #9eb0a8;
-  border-left: 4px solid #1b6e70;
-  color: #294647;
-  background-color: #edf1e8;
+  border: 1px solid #c5d2de;
+  border-left: 4px solid #587b9c;
+  color: #344b61;
+  background-color: #eef4f8;
 }
 
 #wemd .multiquote-2 {
   margin: 24px 0;
-  padding: 15px 18px;
-  border-top: 2px solid #cc5c35;
-  border-bottom: 2px solid #cc5c35;
-  color: #433d35;
-  background-color: #f6e7d4;
+  padding: 16px 18px;
+  border-top: 1px solid #9db2c5;
+  border-bottom: 1px solid #9db2c5;
+  color: #40546a;
+  background-color: #f3f6f9;
 }
 
 #wemd .multiquote-3 {
   margin: 24px 0;
-  padding: 16px 19px;
-  border: 1px solid #173c3d;
-  color: #f7f3e8;
-  background-color: #173c3d;
+  padding: 17px 19px;
+  border: 1px solid #304b65;
+  color: #f3f7fb;
+  background-color: #304b65;
 }
 
 #wemd .multiquote-1 p,
 #wemd .multiquote-2 p {
   margin: 0;
-  color: #294647;
+  color: #40546a;
   font-size: 15px;
-  line-height: 1.75;
+  line-height: 1.76;
 }
 
 #wemd .multiquote-3 p {
   margin: 0;
-  color: #f7f3e8;
+  color: #f3f7fb;
   font-size: 15px;
-  line-height: 1.75;
+  line-height: 1.76;
 }
 
 #wemd .multiquote-1 .multiquote-1,
@@ -236,22 +228,19 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
   height: 0;
   margin: 42px 0;
   border: none;
-  border-top: 2px solid #1b6e70;
-  border-bottom: 1px solid #cc5c35;
-  background-color: #f7f3e8;
+  border-top: 1px solid #8da7bf;
+  background-color: transparent;
 }
 
 #wemd figure {
-  margin: 34px 0 39px;
+  margin: 34px 0 38px;
   padding: 7px;
-  border: 1px solid #9eb0a8;
-  background-color: #fffdf5;
+  border: 1px solid #c5d2de;
+  background-color: #ffffff;
   break-inside: avoid;
 }
 
-#wemd figure a {
-  border: none;
-}
+#wemd figure a { border: none; }
 
 #wemd img,
 #wemd figure a img {
@@ -264,9 +253,9 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
 #wemd figcaption {
   margin-top: 0;
   padding: 9px 10px 4px;
-  border-top: 1px dotted #9eb0a8;
-  color: #5d706d;
-  background-color: #fffdf5;
+  border-top: 1px dotted #c5d2de;
+  color: #6c7f91;
+  background-color: #ffffff;
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 12px;
   line-height: 1.6;
@@ -276,9 +265,9 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
 #wemd p code,
 #wemd li code {
   padding: 2px 6px;
-  border: 1px solid #a7b8af;
-  color: #125d60;
-  background-color: #edf1e8;
+  border: 1px solid #c0cedb;
+  color: #315f86;
+  background-color: #edf3f8;
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 13px;
   word-break: break-all;
@@ -286,10 +275,10 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
 
 #wemd pre {
   margin: 30px 0;
-  border: 1px solid #173c3d;
-  border-top: 6px solid #cc5c35;
-  color: #eaf3ef;
-  background-color: #142b30;
+  border: 1px solid #263e56;
+  border-top: 5px solid #6d90b0;
+  color: #e8f0f7;
+  background-color: #1d3043;
   overflow-x: auto;
 }
 
@@ -298,8 +287,8 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
   display: block;
   min-width: max-content;
   padding: 20px;
-  color: #eaf3ef;
-  background-color: #142b30;
+  color: #e8f0f7;
+  background-color: #1d3043;
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 13px;
   line-height: 1.7;
@@ -308,8 +297,8 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
 
 #wemd pre.custom > .mac-sign {
   display: block;
-  border-bottom: 1px solid #456167;
-  background-color: #142b30;
+  border-bottom: 1px solid #49637a;
+  background-color: #1d3043;
 }
 
 #wemd .table-container {
@@ -320,56 +309,50 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
 #wemd table {
   width: 100%;
   border-collapse: collapse;
-  border: 2px solid #173c3d;
-  color: #223237;
-  background-color: #fffdf5;
+  border: 1px solid #aebdcb;
+  color: #34465a;
+  background-color: #ffffff;
   text-align: left;
 }
 
-#wemd table tr {
-  background-color: #fffdf5;
-}
-
-#wemd table tr:nth-child(2n) {
-  background-color: #edf1e8;
-}
+#wemd table tr:nth-child(2n) { background-color: #f2f6f9; }
 
 #wemd table tr th,
 #wemd table tr td {
   min-width: 88px;
   padding: 10px;
-  border: 1px solid #9eb0a8;
-  color: #223237;
+  border: 1px solid #c9d4de;
+  color: #34465a;
   font-size: 14px;
   line-height: 1.6;
 }
 
 #wemd table tr th {
-  color: #f7f3e8;
-  background-color: #173c3d;
+  color: #f3f7fb;
+  background-color: #3f5e7a;
   font-weight: 700;
 }
 
 #wemd .callout {
-  margin: 30px 0;
+  margin: 29px 0;
   padding: 17px 19px;
-  border: 1px dashed #789293;
+  border: 1px dashed #8ea7be;
   border-radius: 0;
-  color: #294647;
-  background-color: #edf1e8;
+  color: #385169;
+  background-color: #eef4f8;
   break-inside: avoid;
 }
 
 #wemd .callout-warning,
 #wemd .callout-caution {
-  border-color: #cc5c35;
-  color: #5a362a;
-  background-color: #f8e3ce;
+  border-color: #b69a70;
+  color: #604f38;
+  background-color: #f8f3ea;
 }
 
 #wemd .callout-title {
   margin-bottom: 7px;
-  color: #175b5d;
+  color: #3f6a91;
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 13px;
   font-weight: 750;
@@ -377,45 +360,43 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
 
 #wemd .callout p {
   margin: 0;
-  color: #294647;
+  color: #385169;
   font-size: 15px;
 }
 
 #wemd .callout-warning p,
-#wemd .callout-caution p {
-  color: #5a362a;
-}
+#wemd .callout-caution p { color: #604f38; }
 
 #wemd .footnote-word,
 #wemd .footnote-ref {
-  color: #11666a;
+  color: #386b98;
   font-weight: 700;
 }
 
 #wemd .footnotes-sep {
   margin-top: 48px;
   padding-top: 15px;
-  border-top: 3px double #173c3d;
-  color: #173c3d;
-  background-color: #f7f3e8;
+  border-top: 3px double #7f99b1;
+  color: #4c647a;
+  background-color: transparent;
 }
 
 #wemd .footnote-item {
   display: flex;
   margin-top: 9px;
-  color: #536562;
+  color: #65788a;
 }
 
 #wemd .footnote-num {
   width: 30px;
   flex-shrink: 0;
-  color: #9b452b;
+  color: #466f94;
   font-weight: 700;
 }
 
 #wemd .footnote-item p {
   margin: 0;
-  color: #536562;
+  color: #65788a;
   font-size: 13px;
   line-height: 1.65;
 }
@@ -424,46 +405,42 @@ export const gridResearchTheme = `/* 方格研究风：纸面网格、研究批�
   display: block;
   margin: 30px 0;
   padding: 18px 10px;
-  border: 1px solid #9eb0a8;
-  color: #173c3d;
-  background-color: #fffdf5;
+  border: 1px solid #c0cedb;
+  color: #2d475f;
+  background-color: #f4f7fa;
   text-align: center;
   overflow-x: auto;
 }
 
-#wemd .block-equation > svg {
-  max-width: 300% !important;
-}
+#wemd .block-equation > svg { max-width: 300% !important; }
 
 #wemd .inline-equation {
-  color: #173c3d;
-  background-color: #f7f3e8;
+  color: #2d475f;
+  background-color: #edf3f8;
 }
 
-#wemd .inline-equation > svg {
-  vertical-align: middle;
-}
+#wemd .inline-equation > svg { vertical-align: middle; }
 
 #wemd pre.mermaid {
   padding: 20px 10px;
-  border: 1px solid #9eb0a8;
-  border-top: 6px solid #1b6e70;
-  color: #223237;
-  background-color: #fffdf5;
+  border: 1px solid #c0cedb;
+  border-top: 5px solid #6d90b0;
+  color: #2d475f;
+  background-color: #f4f7fa;
 }
 
 #wemd .task-list-item {
   display: flex;
   align-items: flex-start;
   margin-left: -1.2em;
-  color: #223237;
+  color: #34465a;
   list-style: none;
 }
 
 #wemd .task-list-item input[type='checkbox'] {
   margin-top: 7px;
   margin-right: 8px;
-  accent-color: #1b6e70;
+  accent-color: #587b9c;
   pointer-events: none;
 }
 `;

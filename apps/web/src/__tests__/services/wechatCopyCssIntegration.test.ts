@@ -22,13 +22,14 @@ import { generateCSS } from "../../components/Theme/ThemeDesigner/generateCSS";
 import { builtInThemes } from "../../store/themes/builtInThemes";
 
 describe("wechat copy css integration", () => {
-  it("将四款写作主题稳定内联并保留编辑器叶节点样式", () => {
+  it("将五款写作主题稳定内联并保留编辑器叶节点样式", () => {
     const getThemeCss = (id: string): string => {
       const theme = builtInThemes.find((item) => item.id === id);
       expect(theme, `${id} 应注册为内置主题`).toBeTruthy();
       return theme!.css;
     };
     const themes = [
+      ["ai-tool-style-light", getThemeCss("ai-tool-style-light"), true],
       ["grid-research", getThemeCss("grid-research"), true],
       ["aurora-dark", getThemeCss("aurora-dark"), true],
       ["oversized-tech", getThemeCss("oversized-tech"), true],
