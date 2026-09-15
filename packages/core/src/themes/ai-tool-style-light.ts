@@ -3,9 +3,9 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
   max-width: 677px;
   margin: 0 auto;
   padding: 28px 22px;
-  color: #34443f;
-  background-color: #fbfdfc;
-  background-image: linear-gradient(180deg, #ffffff 0%, #f4f8f7 100%);
+  color: #555555;
+  background-color: #ffffff;
+  background-image: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
   font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
   font-size: 16px;
   line-height: 1.82;
@@ -15,7 +15,7 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 
 #wemd p {
   margin: 0 0 22px;
-  color: #34443f;
+  color: #555555;
   background-color: transparent;
   font-size: 16px;
   line-height: 1.82;
@@ -28,7 +28,7 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd h4,
 #wemd h5,
 #wemd h6 {
-  color: #1f3430;
+  color: #333333;
   font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
   text-align: left;
 }
@@ -36,14 +36,14 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd h1 {
   margin: 24px 0 38px;
   padding: 22px 20px 20px;
-  border-top: 5px solid #0f766e;
-  border-bottom: 1px solid #c9ded8;
-  background-color: #edf7f4;
+  border-top: 5px solid #916dd5;
+  border-bottom: 1px solid #d9cfea;
+  background-color: #916dd5;
 }
 
 #wemd h1 .content {
   display: block;
-  color: #173f39;
+  color: #ffffff;
   font-size: 28px;
   font-weight: 800;
   line-height: 1.38;
@@ -54,12 +54,12 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd h2 {
   margin: 38px 0 20px;
   padding: 1px 0 1px 13px;
-  border-left: 4px solid #168579;
+  border-left: 4px solid #916dd5;
   background-color: transparent;
 }
 
 #wemd h2 .content {
-  color: #1f3430;
+  color: #333333;
   font-size: 22px;
   font-weight: 750;
   line-height: 1.5;
@@ -69,12 +69,12 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd h3 {
   margin: 30px 0 16px;
   padding: 0 0 8px;
-  border-bottom: 1px solid #d5e4e0;
+  border-bottom: 1px solid #d9cfea;
   background-color: transparent;
 }
 
 #wemd h3 .content {
-  color: #2b4b45;
+  color: #333333;
   font-size: 18px;
   font-weight: 700;
   line-height: 1.5;
@@ -91,7 +91,7 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd h4 .content,
 #wemd h5 .content,
 #wemd h6 .content {
-  color: #40615a;
+  color: #777777;
   font-size: 16px;
   font-weight: 700;
   line-height: 1.55;
@@ -106,7 +106,7 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
   height: 6px;
   margin: 0 9px 2px 0;
   border-radius: 50%;
-  background-color: #41a497;
+  background-color: #e2c056;
 }
 
 #wemd h1 .prefix,
@@ -125,34 +125,34 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 }
 
 #wemd strong {
-  color: #0f6f66;
+  color: #916dd5;
   font-weight: 750;
 }
 
 #wemd em,
 #wemd em strong {
-  color: #597069;
+  color: #888888;
   font-style: italic;
 }
 
 #wemd s,
 #wemd del {
-  color: #8b9995;
+  color: #bbbbbb;
   text-decoration: line-through;
 }
 
 #wemd mark {
   padding: 1px 5px;
-  border-bottom: 2px solid #55a99f;
-  color: #264d47;
-  background-color: #dff2ed;
+  border-bottom: 2px solid #e2c056;
+  color: #8a6d14;
+  background-color: #f8f0d2;
 }
 
 #wemd a {
-  color: #0d766c;
+  color: #72aaa6;
   font-weight: 650;
   text-decoration: underline;
-  text-decoration-color: #91c8c0;
+  text-decoration-color: #bad8d5;
   text-underline-offset: 0.22em;
 }
 
@@ -160,7 +160,7 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd ol {
   margin: 17px 0 24px;
   padding-left: 25px;
-  color: #178276;
+  color: #916dd5;
 }
 
 #wemd ul { list-style-type: disc; }
@@ -168,7 +168,7 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 
 #wemd li section {
   margin: 7px 0;
-  color: #34443f;
+  color: #555555;
   font-size: 16px;
   line-height: 1.78;
   letter-spacing: 0.012em;
@@ -179,39 +179,40 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd .multiquote-1 {
   margin: 27px 0;
   padding: 17px 19px;
-  border: 1px solid #c8ddd7;
-  border-left: 4px solid #178276;
-  color: #304d47;
-  background-color: #edf7f4;
+  border: 1px solid #e2e2e2;
+  border-left: 4px solid #916dd5;
+  color: #555555;
+  background-color: #f5f5f5;
 }
 
 #wemd .multiquote-2 {
   margin: 24px 0;
   padding: 16px 18px;
-  border-left: 4px solid #6aa49b;
-  color: #40544f;
-  background-color: #f1f5f4;
+  border-left: 4px solid #916dd5;
+  color: #666666;
+  background-color: #f4f0fb;
 }
 
 #wemd .multiquote-3 {
   margin: 24px 0;
   padding: 17px 19px;
-  border: 1px solid #285b53;
-  color: #f4fbf9;
-  background-color: #285b53;
+  border: 1px solid #eadca8;
+  border-left: 4px solid #e2c056;
+  color: #666666;
+  background-color: #fbf7e8;
 }
 
 #wemd .multiquote-1 p,
 #wemd .multiquote-2 p {
   margin: 0;
-  color: #40544f;
+  color: #666666;
   font-size: 15px;
   line-height: 1.78;
 }
 
 #wemd .multiquote-3 p {
   margin: 0;
-  color: #f4fbf9;
+  color: #666666;
   font-size: 15px;
   line-height: 1.78;
 }
@@ -231,14 +232,14 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
   height: 0;
   margin: 40px 0;
   border: none;
-  border-top: 1px solid #bdd5cf;
+  border-top: 1px solid #e4ddef;
   background-color: transparent;
 }
 
 #wemd figure {
   margin: 32px 0 36px;
   padding: 7px;
-  border: 1px solid #d3e1dd;
+  border: 1px solid #e8e3ee;
   background-color: #ffffff;
   break-inside: avoid;
 }
@@ -256,8 +257,8 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd figcaption {
   margin-top: 0;
   padding: 9px 10px 4px;
-  border-top: 1px solid #e2ebe8;
-  color: #758580;
+  border-top: 1px solid #eeeeee;
+  color: #999999;
   background-color: #ffffff;
   font-size: 12px;
   line-height: 1.6;
@@ -267,9 +268,9 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd p code,
 #wemd li code {
   padding: 2px 6px;
-  border: 1px solid #c6ddd7;
-  color: #0f6f66;
-  background-color: #edf7f4;
+  border: 1px solid #ddd2ef;
+  color: #916dd5;
+  background-color: #f4f0fb;
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 13px;
   word-break: break-all;
@@ -277,10 +278,10 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 
 #wemd pre {
   margin: 29px 0;
-  border: 1px solid #254941;
-  border-top: 5px solid #41a497;
-  color: #dff4ef;
-  background-color: #18342f;
+  border: 1px solid #eeeeee;
+  border-top: 5px solid #916dd5;
+  color: #555555;
+  background-color: #f8f8f8;
   overflow-x: auto;
 }
 
@@ -289,8 +290,8 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
   display: block;
   min-width: max-content;
   padding: 19px;
-  color: #dff4ef;
-  background-color: #18342f;
+  color: #555555;
+  background-color: #f8f8f8;
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 13px;
   line-height: 1.7;
@@ -299,8 +300,8 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 
 #wemd pre.custom > .mac-sign {
   display: block;
-  border-bottom: 1px solid #396159;
-  background-color: #18342f;
+  border-bottom: 1px solid #e3e3e3;
+  background-color: #f8f8f8;
 }
 
 #wemd .table-container {
@@ -311,38 +312,38 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #bfd4ce;
-  color: #34443f;
+  border: 1px solid #ded8e8;
+  color: #555555;
   background-color: #ffffff;
   text-align: left;
 }
 
-#wemd table tr:nth-child(2n) { background-color: #f3f8f6; }
+#wemd table tr:nth-child(2n) { background-color: #faf8fd; }
 
 #wemd table tr th,
 #wemd table tr td {
   min-width: 88px;
   padding: 10px 12px;
-  border: 1px solid #d4e2de;
-  color: #34443f;
+  border: 1px solid #e8e3ee;
+  color: #555555;
   font-size: 14px;
   line-height: 1.6;
 }
 
 #wemd table tr th {
-  color: #21443d;
-  background-color: #e5f2ee;
+  color: #333333;
+  background-color: #f1ecf8;
   font-weight: 700;
 }
 
 #wemd .callout {
   margin: 28px 0;
   padding: 16px 18px;
-  border: 1px solid #c5dbd5;
-  border-left: 4px solid #178276;
+  border: 1px solid #ddd2ef;
+  border-left: 4px solid #916dd5;
   border-radius: 0;
-  color: #365049;
-  background-color: #edf7f4;
+  color: #555555;
+  background-color: #f4f0fb;
   break-inside: avoid;
 }
 
@@ -355,14 +356,14 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 
 #wemd .callout-title {
   margin-bottom: 7px;
-  color: #0f6f66;
+  color: #916dd5;
   font-size: 14px;
   font-weight: 750;
 }
 
 #wemd .callout p {
   margin: 0;
-  color: #365049;
+  color: #555555;
   font-size: 15px;
 }
 
@@ -371,34 +372,34 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 
 #wemd .footnote-word,
 #wemd .footnote-ref {
-  color: #0f766e;
+  color: #916dd5;
   font-weight: 700;
 }
 
 #wemd .footnotes-sep {
   margin-top: 46px;
   padding-top: 15px;
-  border-top: 1px solid #bfd4ce;
-  color: #56716a;
+  border-top: 1px solid #e4ddef;
+  color: #777777;
   background-color: transparent;
 }
 
 #wemd .footnote-item {
   display: flex;
   margin-top: 9px;
-  color: #657771;
+  color: #888888;
 }
 
 #wemd .footnote-num {
   width: 30px;
   flex-shrink: 0;
-  color: #0f766e;
+  color: #916dd5;
   font-weight: 700;
 }
 
 #wemd .footnote-item p {
   margin: 0;
-  color: #657771;
+  color: #888888;
   font-size: 13px;
   line-height: 1.65;
 }
@@ -407,9 +408,9 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
   display: block;
   margin: 29px 0;
   padding: 17px 10px;
-  border: 1px solid #c5dbd5;
-  color: #23433d;
-  background-color: #f4f9f7;
+  border: 1px solid #ddd2ef;
+  color: #555555;
+  background-color: #faf8fd;
   text-align: center;
   overflow-x: auto;
 }
@@ -417,32 +418,32 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd .block-equation > svg { max-width: 300% !important; }
 
 #wemd .inline-equation {
-  color: #23433d;
-  background-color: #edf7f4;
+  color: #916dd5;
+  background-color: #f4f0fb;
 }
 
 #wemd .inline-equation > svg { vertical-align: middle; }
 
 #wemd pre.mermaid {
   padding: 20px 10px;
-  border: 1px solid #c5dbd5;
-  border-top: 5px solid #41a497;
-  color: #23433d;
-  background-color: #f4f9f7;
+  border: 1px solid #ddd2ef;
+  border-top: 5px solid #916dd5;
+  color: #555555;
+  background-color: #faf8fd;
 }
 
 #wemd .task-list-item {
   display: flex;
   align-items: flex-start;
   margin-left: -1.2em;
-  color: #34443f;
+  color: #555555;
   list-style: none;
 }
 
 #wemd .task-list-item input[type='checkbox'] {
   margin-top: 7px;
   margin-right: 8px;
-  accent-color: #178276;
+  accent-color: #916dd5;
   pointer-events: none;
 }
 
@@ -477,7 +478,7 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 }
 
 #wemd .imageflow-caption {
-  color: #758580;
+  color: #999999;
   text-align: center;
 }
 `;

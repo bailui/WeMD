@@ -81,9 +81,9 @@ describe("writer-focused themes", () => {
   });
 
   it("五款主题采用彼此独立的排版锚点", () => {
-    expect(gridResearchTheme).toContain("background-color: #fbfcfe");
-    expect(gridResearchTheme).toContain("background-size: 28px 28px");
-    expect(gridResearchTheme).toContain("border-left: 5px solid #4d7296");
+    expect(gridResearchTheme).toContain("background-color: #f7f3e8");
+    expect(gridResearchTheme).toContain("background-size: 24px 24px");
+    expect(gridResearchTheme).toContain("border-left: 5px solid #cc5c35");
 
     expect(auroraDarkTheme).toContain("background-color: #07151f");
     expect(auroraDarkTheme).toContain("border-top: 6px solid #4ee1c1");
@@ -98,16 +98,17 @@ describe("writer-focused themes", () => {
     expect(violetLabTheme).toContain("list-style-type: decimal-leading-zero");
   });
 
-  it("两款亮色主题使用清爽的单主色排版并移除旧配色", () => {
+  it("两款亮色主题保留各自原始配色并采用舒展排版", () => {
     expect(aiToolStyleLightTheme).toContain("font-size: 16px");
-    expect(aiToolStyleLightTheme).toContain("border-top: 5px solid #0f766e");
+    expect(aiToolStyleLightTheme).toContain("border-top: 5px solid #916dd5");
     expect(aiToolStyleLightTheme).toContain(
-      "background-image: linear-gradient(180deg, #ffffff 0%, #f4f8f7 100%)",
+      "background-image: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%)",
     );
-    expect(aiToolStyleLightTheme).not.toMatch(/#916dd5|#e2c056|url\s*\(/i);
+    expect(aiToolStyleLightTheme).toMatch(/#916dd5|#e2c056/i);
+    expect(aiToolStyleLightTheme).not.toMatch(/url\s*\(/i);
 
-    expect(gridResearchTheme).toContain("#e6ebf2 1px");
-    expect(gridResearchTheme).not.toMatch(/#f7f3e8|#cc5c35|#1b6e70/i);
+    expect(gridResearchTheme).toContain("#dfe5dc 1px");
+    expect(gridResearchTheme).toMatch(/#f7f3e8|#cc5c35|#1b6e70/i);
   });
 
   it("极光暗色风为关键内容块显式提供暗底亮字", () => {
