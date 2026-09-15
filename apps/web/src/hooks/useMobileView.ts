@@ -18,7 +18,7 @@ const isCoarsePointer = (): boolean => {
 
 const detectMobile = (): boolean => {
   if (typeof window === "undefined") return false;
-  return window.innerWidth < MOBILE_BREAKPOINT && isCoarsePointer();
+  return window.innerWidth <= MOBILE_BREAKPOINT && isCoarsePointer();
 };
 
 export function useMobileView() {

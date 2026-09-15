@@ -128,7 +128,7 @@ export function Header() {
           />
           <FloatingToolbarButton
             icon={<Code size={18} strokeWidth={2} />}
-            label="复制 HTML"
+            label="复制 HTML 源码（无主题）"
             onClick={copyAsHtml}
           />
           <FloatingToolbarButton
@@ -161,26 +161,26 @@ export function Header() {
           <nav className="header-nav" aria-label="编辑器设置">
             {!isElectron && (
               <button
-                className="header-nav-button"
+                className="header-nav-button header-nav-button--storage"
                 onClick={() => setShowStorageModal(true)}
               >
                 存储模式
               </button>
             )}
             <button
-              className="header-nav-button"
+              className="header-nav-button header-nav-button--image-host"
               onClick={() => setShowImageHostModal(true)}
             >
               图床设置
             </button>
             <button
-              className="header-nav-button"
+              className="header-nav-button header-nav-button--article-theme"
               onClick={() => setShowThemePanel(true)}
             >
               文章主题
             </button>
             <button
-              className="header-nav-button"
+              className="header-nav-button header-nav-button--ai"
               onClick={() => setShowAiModal(true)}
             >
               AI 优化
@@ -199,6 +199,7 @@ export function Header() {
               data-tooltip={
                 uiTheme === "dark" ? "切换到亮色模式" : "切换到暗色模式"
               }
+              title={uiTheme === "dark" ? "切换到亮色模式" : "切换到暗色模式"}
             >
               {uiTheme === "dark" ? (
                 <Sun size={18} strokeWidth={2} />
@@ -209,16 +210,18 @@ export function Header() {
             <button
               className="btn-secondary header-action-button header-action-secondary"
               onClick={copyAsHtml}
-              aria-label="复制 HTML"
+              aria-label="复制 HTML 源码（无主题）"
+              title="复制 HTML 源码（无主题）"
             >
               <Code size={18} strokeWidth={2} />
-              <span>复制 HTML</span>
+              <span>HTML 源码</span>
             </button>
 
             <button
               className="btn-primary header-action-button header-action-primary"
               onClick={copyToWechat}
               aria-label="复制到公众号"
+              title="复制到公众号"
             >
               <Send size={18} strokeWidth={2} />
               <span>复制到公众号</span>
@@ -229,6 +232,7 @@ export function Header() {
               onClick={handleHideHeader}
               aria-label="隐藏标题栏"
               data-tooltip="隐藏标题栏"
+              title="隐藏标题栏"
             >
               <ChevronsDown size={18} strokeWidth={2} />
             </button>

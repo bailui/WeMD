@@ -45,6 +45,8 @@ export function MobileToolbar({
               <button
                 className="mobile-menu-close"
                 onClick={() => setShowMenu(false)}
+                aria-label="关闭更多功能"
+                title="关闭更多功能"
               >
                 <X size={20} />
               </button>
@@ -58,7 +60,7 @@ export function MobileToolbar({
                 }}
               >
                 <Code size={20} />
-                <span>复制 HTML</span>
+                <span>复制 HTML 源码（无主题）</span>
               </button>
               <button
                 className="mobile-menu-item"
@@ -98,12 +100,16 @@ export function MobileToolbar({
           <button
             className="mobile-action-btn primary"
             onClick={onCopyToWechat}
+            aria-label="复制到公众号"
+            title="复制到公众号"
           >
             <Copy size={18} />
           </button>
           <button
             className="mobile-action-btn"
             onClick={() => setShowMenu(true)}
+            aria-label="更多功能"
+            title="更多功能"
           >
             <MoreHorizontal size={18} />
           </button>

@@ -19,8 +19,94 @@ import {
 } from "../../services/wechatCounterCompat";
 import { defaultVariables } from "../../components/Theme/ThemeDesigner/defaults";
 import { generateCSS } from "../../components/Theme/ThemeDesigner/generateCSS";
+import { builtInThemes } from "../../store/themes/builtInThemes";
 
 describe("wechat copy css integration", () => {
+  it("将四款写作主题稳定内联并保留编辑器叶节点样式", () => {
+    const getThemeCss = (id: string): string => {
+      const theme = builtInThemes.find((item) => item.id === id);
+      expect(theme, `${id} 应注册为内置主题`).toBeTruthy();
+      return theme!.css;
+    };
+    const themes = [
+      ["grid-research", getThemeCss("grid-research"), true],
+      ["aurora-dark", getThemeCss("aurora-dark"), true],
+      ["oversized-tech", getThemeCss("oversized-tech"), false],
+      ["violet-lab", getThemeCss("violet-lab"), false],
+    ] as const;
+    const html = `
+      <h1><span class="content">文章标题</span></h1>
+      <section>
+        <span leaf="" contenteditable="true" data-slate-leaf="true" data-lexical-key="copy-leaf">
+          1. 《民法典》<strong>第 188 条</strong>：正文内容。
+        </span>
+      </section>
+      <nav class="table-of-contents"><a href="#part-1">目录链接</a></nav>
+      <p><s>Markdown 删除线</s><del>HTML 删除线</del></p>
+    `;
+
+    for (const [name, theme, expectsBackgroundCanvas] of themes) {
+      const styledHtml = resolveInlineStyleVariablesForCopy(
+        processHtml(html, theme, true, true),
+      );
+      const container = document.createElement("div");
+      container.innerHTML = styledHtml;
+
+      const result = normalizeCopyContainer(container);
+      const root = container.firstElementChild as HTMLElement;
+      const leaf = Array.from(root.querySelectorAll("span")).find((node) =>
+        node.textContent?.includes("《民法典》"),
+      ) as HTMLElement | undefined;
+      const emphasisFallback = root.querySelector(
+        "strong > span",
+      ) as HTMLElement | null;
+
+      expect(root, `${name} 应输出单一文章根节点`).toBeTruthy();
+      expect(result.requiresExactHtmlTransport, name).toBe(
+        expectsBackgroundCanvas,
+      );
+      expect(root.tagName, name).toBe(
+        expectsBackgroundCanvas ? "SECTION" : "DIV",
+      );
+      expect(
+        root.querySelector("h1")?.style.backgroundColor,
+        name,
+      ).toBeTruthy();
+      expect(root.querySelector("h1")?.getAttribute("style"), name).toContain(
+        "border",
+      );
+      expect(leaf?.style.color, name).toBeTruthy();
+      expect(leaf?.style.fontFamily, name).toBeTruthy();
+      expect(leaf?.style.fontSize, name).toBeTruthy();
+      expect(emphasisFallback?.textContent, name).toBe("第 188 条");
+      expect(emphasisFallback?.style.color, name).toBeTruthy();
+      expect(emphasisFallback?.style.fontWeight, name).toBeTruthy();
+      expect(container.innerHTML, name).not.toContain("var(");
+      expect(container.innerHTML, name).not.toMatch(
+        /(?:leaf|contenteditable|data-slate-|data-lexical-)=/,
+      );
+      expect(root.id, name).toBe("");
+    }
+
+    const auroraContainer = document.createElement("div");
+    auroraContainer.innerHTML = resolveInlineStyleVariablesForCopy(
+      processHtml(html, getThemeCss("aurora-dark"), true, true),
+    );
+    normalizeCopyContainer(auroraContainer);
+
+    const tocLink = auroraContainer.querySelector(
+      ".table-of-contents a",
+    ) as HTMLElement;
+    const deleted = auroraContainer.querySelector("del") as HTMLElement;
+    const markdownDeleted = auroraContainer.querySelector("s") as HTMLElement;
+    expect(tocLink.style.color).toBe("rgb(117, 237, 214)");
+    expect(tocLink.style.backgroundColor).toBe("rgb(7, 21, 31)");
+    expect(markdownDeleted.style.color).toBe("rgb(155, 186, 182)");
+    expect(markdownDeleted.style.backgroundColor).toBe("rgb(7, 21, 31)");
+    expect(deleted.style.color).toBe("rgb(155, 186, 182)");
+    expect(deleted.style.backgroundColor).toBe("rgb(7, 21, 31)");
+  });
+
   it("将四款场景化主题的关键样式内联到复制内容", () => {
     const themes = [
       dataBlueprintTheme,

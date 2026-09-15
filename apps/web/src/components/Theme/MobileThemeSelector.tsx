@@ -39,7 +39,12 @@ export function MobileThemeSelector({
       <div className="mobile-theme-panel" onClick={(e) => e.stopPropagation()}>
         <div className="mobile-theme-header">
           <span>选择主题</span>
-          <button className="mobile-theme-close" onClick={onClose}>
+          <button
+            className="mobile-theme-close"
+            onClick={onClose}
+            aria-label="关闭主题选择"
+            title="关闭主题选择"
+          >
             <X size={20} />
           </button>
         </div>

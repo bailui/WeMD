@@ -134,10 +134,15 @@ describe("Header", () => {
     expect(mockCopyToWechat).toHaveBeenCalled();
   });
 
-  it("calls copyAsHtml action", () => {
+  it("labels and calls the unthemed HTML source action clearly", () => {
     render(<Header />);
 
-    fireEvent.click(screen.getByText("复制 HTML"));
+    const sourceButton = screen.getByRole("button", {
+      name: "复制 HTML 源码（无主题）",
+    });
+    expect(sourceButton).toHaveTextContent("HTML 源码");
+    expect(sourceButton).toHaveAttribute("title", "复制 HTML 源码（无主题）");
+    fireEvent.click(sourceButton);
     expect(mockCopyAsHtml).toHaveBeenCalled();
   });
 
@@ -211,6 +216,11 @@ describe("Header", () => {
     expect(screen.getByLabelText("显示标题栏")).toBeInTheDocument();
     expect(screen.getByLabelText("主题管理")).toBeInTheDocument();
     expect(screen.getByLabelText("图床设置")).toBeInTheDocument();
+    expect(
+      within(floatingToolbar as HTMLElement).getByRole("button", {
+        name: "复制 HTML 源码（无主题）",
+      }),
+    ).toBeInTheDocument();
     expect(
       within(floatingToolbar as HTMLElement).getByRole("button", {
         name: "复制到公众号",

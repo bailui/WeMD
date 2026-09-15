@@ -101,6 +101,135 @@ const hasDirectTextContent = (element: HTMLElement): boolean => {
   });
 };
 
+const COPY_TEXT_STYLE_PROPERTIES = [
+  "color",
+  "font-family",
+  "font-size",
+  "font-style",
+  "font-weight",
+  "line-height",
+  "letter-spacing",
+  "text-decoration",
+] as const;
+
+type CopyTextStyleProperty = (typeof COPY_TEXT_STYLE_PROPERTIES)[number];
+
+type InlineStyleValue = {
+  value: string;
+  priority: string;
+};
+
+const isCssWideKeyword = (value: string): boolean => {
+  const normalized = value.trim().toLowerCase();
+  return (
+    normalized === "inherit" ||
+    normalized === "initial" ||
+    normalized === "unset" ||
+    normalized === "revert" ||
+    normalized === "revert-layer"
+  );
+};
+
+const getSemanticTextStyleDefault = (
+  node: HTMLElement,
+  property: CopyTextStyleProperty,
+): string | null => {
+  if (
+    property === "font-weight" &&
+    (node.tagName === "STRONG" || node.tagName === "B")
+  ) {
+    return "bold";
+  }
+  if (
+    property === "font-style" &&
+    (node.tagName === "EM" || node.tagName === "I")
+  ) {
+    return "italic";
+  }
+  return null;
+};
+
+const findEffectiveInlineTextStyle = (
+  node: HTMLElement,
+  property: CopyTextStyleProperty,
+  boundary: HTMLElement,
+  includeSemanticDefaults: boolean,
+): InlineStyleValue | null => {
+  let current: HTMLElement | null = node;
+
+  while (current) {
+    const value = current.style.getPropertyValue(property).trim();
+    if (value && !isCssWideKeyword(value)) {
+      return {
+        value,
+        priority: current.style.getPropertyPriority(property),
+      };
+    }
+
+    if (includeSemanticDefaults) {
+      const semanticDefault = getSemanticTextStyleDefault(current, property);
+      if (semanticDefault) {
+        return { value: semanticDefault, priority: "" };
+      }
+    }
+
+    if (current === boundary) break;
+    current = current.parentElement;
+  }
+
+  return null;
+};
+
+const materializeInheritedLeafTextStyles = (container: HTMLElement): void => {
+  const root = container.firstElementChild;
+  if (!(root instanceof HTMLElement)) return;
+
+  root.querySelectorAll<HTMLElement>("[leaf]").forEach((leaf) => {
+    COPY_TEXT_STYLE_PROPERTIES.forEach((property) => {
+      const style = findEffectiveInlineTextStyle(leaf, property, root, false);
+      if (style) leaf.style.setProperty(property, style.value, style.priority);
+    });
+  });
+};
+
+const SEMANTIC_TEXT_SELECTOR = "strong,b,em,i";
+const PROTECTED_INLINE_SELECTOR =
+  "a,code,pre,math,svg,.katex,.katex-display,[data-math]";
+
+const materializeSemanticTextFallbacks = (container: HTMLElement): void => {
+  const root = container.firstElementChild;
+  if (!(root instanceof HTMLElement)) return;
+
+  root
+    .querySelectorAll<HTMLElement>(SEMANTIC_TEXT_SELECTOR)
+    .forEach((semanticNode) => {
+      if (semanticNode.closest(PROTECTED_INLINE_SELECTOR)) return;
+
+      const directTextNodes = Array.from(semanticNode.childNodes).filter(
+        (node): node is Text =>
+          node.nodeType === Node.TEXT_NODE &&
+          Boolean((node.textContent || "").trim()),
+      );
+
+      directTextNodes.forEach((textNode) => {
+        const fallback = document.createElement("span");
+        COPY_TEXT_STYLE_PROPERTIES.forEach((property) => {
+          const style = findEffectiveInlineTextStyle(
+            semanticNode,
+            property,
+            root,
+            true,
+          );
+          if (style) {
+            fallback.style.setProperty(property, style.value, style.priority);
+          }
+        });
+        fallback.textContent = textNode.textContent;
+        semanticNode.replaceChild(fallback, textNode);
+      });
+    });
+};
+
 const materializeTextColorForWechat = (container: HTMLElement): void => {
   const root = container.firstElementChild;
   if (!(root instanceof HTMLElement)) return;
@@ -216,15 +345,22 @@ export const stripCopyMetadata = (container: HTMLElement): void => {
     root.removeAttribute("id");
   }
 
-  container.querySelectorAll<HTMLElement>("[data-tool]").forEach((node) => {
-    node.removeAttribute("data-tool");
-  });
-
-  container
-    .querySelectorAll<HTMLElement>("[data-wemd-counter-generated]")
-    .forEach((node) => {
-      node.removeAttribute("data-wemd-counter-generated");
+  container.querySelectorAll<HTMLElement>("*").forEach((node) => {
+    Array.from(node.attributes).forEach((attribute) => {
+      const name = attribute.name.toLowerCase();
+      if (
+        name === "data-tool" ||
+        name === "data-wemd-counter-generated" ||
+        name === "leaf" ||
+        name === "contenteditable" ||
+        name === "spellcheck" ||
+        name.startsWith("data-slate-") ||
+        name.startsWith("data-lexical-")
+      ) {
+        node.removeAttribute(attribute.name);
+      }
     });
+  });
 };
 
 // ── Padding 迁移 ───────────────────────────────────
@@ -471,6 +607,7 @@ export const normalizeCopyContainer = (
   if (!preserveRootBackgroundCanvas) {
     transformWemdRootSectionToDiv(container);
   }
+  materializeInheritedLeafTextStyles(container);
   stripCopyMetadata(container);
   const rootBgColor = preserveRootBackgroundCanvas
     ? null
@@ -480,6 +617,7 @@ export const normalizeCopyContainer = (
   }
   normalizeBlockBackgroundForWechat(container, rootBgColor);
   materializeTextColorForWechat(container);
+  materializeSemanticTextFallbacks(container);
 
   return {
     requiresExactHtmlTransport: preserveRootBackgroundCanvas,

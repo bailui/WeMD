@@ -92,9 +92,9 @@ export async function copyAsHtml(markdown: string): Promise<void> {
     copyViaExecCommand(html);
 
   if (copied) {
-    toast.success("已复制 HTML");
+    toast.success("已复制 HTML 源码（无主题）；公众号粘贴请使用“复制到公众号”");
     return;
   }
 
-  toast.error("复制 HTML 失败");
+  toast.error("复制 HTML 源码失败");
 }

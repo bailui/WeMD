@@ -56,7 +56,9 @@ describe("copyAsHtml", () => {
     });
     expect(mocked.parserRender).toHaveBeenCalledWith("# Hello");
     expect(writeText).toHaveBeenCalledWith("<h1>Hello</h1>");
-    expect(mocked.toastSuccess).toHaveBeenCalledWith("已复制 HTML");
+    expect(mocked.toastSuccess).toHaveBeenCalledWith(
+      "已复制 HTML 源码（无主题）；公众号粘贴请使用“复制到公众号”",
+    );
     expect(mocked.toastError).not.toHaveBeenCalled();
   });
 
@@ -117,7 +119,9 @@ describe("copyAsHtml", () => {
     expect(mocked.electronClipboardWriteText).toHaveBeenCalledTimes(1);
     expect(writeText).toHaveBeenCalledWith("<h1>Hello</h1>");
     expect(document.execCommand).not.toHaveBeenCalled();
-    expect(mocked.toastSuccess).toHaveBeenCalledWith("已复制 HTML");
+    expect(mocked.toastSuccess).toHaveBeenCalledWith(
+      "已复制 HTML 源码（无主题）；公众号粘贴请使用“复制到公众号”",
+    );
   });
 
   it("falls back to execCommand when Clipboard API write fails", async () => {
@@ -129,7 +133,9 @@ describe("copyAsHtml", () => {
 
     expect(writeText).toHaveBeenCalledWith("<h1>Hello</h1>");
     expect(execSpy).toHaveBeenCalledWith("copy");
-    expect(mocked.toastSuccess).toHaveBeenCalledWith("已复制 HTML");
+    expect(mocked.toastSuccess).toHaveBeenCalledWith(
+      "已复制 HTML 源码（无主题）；公众号粘贴请使用“复制到公众号”",
+    );
     expect(mocked.toastError).not.toHaveBeenCalled();
   });
 
@@ -140,7 +146,7 @@ describe("copyAsHtml", () => {
 
     await expect(copyAsHtml("# Hello")).resolves.toBeUndefined();
 
-    expect(mocked.toastError).toHaveBeenCalledWith("复制 HTML 失败");
+    expect(mocked.toastError).toHaveBeenCalledWith("复制 HTML 源码失败");
     expect(mocked.toastSuccess).not.toHaveBeenCalled();
   });
 });

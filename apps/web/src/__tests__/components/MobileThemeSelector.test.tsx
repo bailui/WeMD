@@ -57,4 +57,12 @@ describe("MobileThemeSelector", () => {
     expect(selectTheme).toHaveBeenCalledWith("default");
     expect(onClose).toHaveBeenCalledOnce();
   });
+
+  it("为关闭图标提供可访问名称和提示", () => {
+    render(<MobileThemeSelector open onClose={vi.fn()} />);
+
+    expect(
+      screen.getByRole("button", { name: "关闭主题选择" }),
+    ).toHaveAttribute("title", "关闭主题选择");
+  });
 });

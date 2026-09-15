@@ -1,9 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
+  auroraDarkTheme,
   clearGuideTheme,
   dataBlueprintTheme,
   easternNotesTheme,
+  gridResearchTheme,
   modernEditorialTheme,
+  oversizedTechTheme,
+  violetLabTheme,
   whitespaceGalleryTheme,
 } from "@wemd/core";
 import { builtInThemes } from "../../store/themes/builtInThemes";
@@ -69,6 +73,27 @@ describe("built-in themes", () => {
       expect(theme?.isSelectable).not.toBe(false);
       expect(theme?.css).toContain(css);
       expect(theme?.css).toContain("#wemd .hljs");
+    }
+  });
+
+  it("注册四款可选的写作主题并组合稳定代码配色", () => {
+    const expectedThemes = [
+      ["grid-research", "方格研究风", gridResearchTheme],
+      ["aurora-dark", "极光暗色风", auroraDarkTheme],
+      ["oversized-tech", "大号科技风", oversizedTechTheme],
+      ["violet-lab", "紫雾实验风", violetLabTheme],
+    ] as const;
+
+    for (const [id, name, css] of expectedThemes) {
+      const theme = builtInThemes.find((item) => item.id === id);
+
+      expect(theme, `${id} 应注册为内置主题`).toBeTruthy();
+      expect(theme?.name).toBe(name);
+      expect(theme?.isBuiltIn).toBe(true);
+      expect(theme?.isSelectable).not.toBe(false);
+      expect(theme?.css).toContain(css);
+      expect(theme?.css).toContain("#wemd .hljs");
+      expect(theme?.css).toContain("#wemd .hljs-literal");
     }
   });
 

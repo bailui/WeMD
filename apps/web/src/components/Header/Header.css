@@ -480,20 +480,92 @@
   transform: translateY(-50%);
 }
 
-@media (max-width: 980px) {
-  .btn-secondary span {
+/* 中等宽度仍保留桌面双栏，但让顶栏跟随可视视口，避免被应用最小宽度推到屏幕外 */
+@media (min-width: 769px) and (max-width: 1180px) {
+  .app-header {
+    width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+    margin-right: 16px;
+    margin-left: 16px;
+    padding-right: calc(12px + var(--titlebar-right-inset, 0px));
+    padding-left: calc(12px + var(--titlebar-left-inset, 0px));
+  }
+
+  .header-left {
+    gap: 10px;
+  }
+
+  .header-nav-button {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .header-action-secondary {
+    width: 34px;
+    flex: 0 0 34px;
+    padding: 0;
+  }
+
+  .header-action-secondary span {
     display: none;
   }
 
-  .btn-secondary {
-    width: 34px;
-    padding: 0;
-    border-color: var(--border-light);
-    background: var(--bg-primary);
+  .header-action-primary {
+    padding-right: 10px;
+    padding-left: 10px;
+    white-space: nowrap;
+  }
+}
+
+/* Windows 窗控会额外占用宽度；更窄时优先保留文章主题和两个复制入口 */
+@media (min-width: 769px) and (max-width: 900px) {
+  .header-nav-button--storage,
+  .header-nav-button--image-host,
+  .header-nav-button--ai {
+    display: none;
   }
 }
 
 @media (max-width: 768px) {
+  /* Electron 和细指针桌面浏览器不使用移动工具栏，顶栏入口必须留在视口内 */
+  .app[data-layout-mode="desktop"] .app-header {
+    width: calc(100vw - 16px);
+    max-width: calc(100vw - 16px);
+    margin: 8px 8px 0;
+    padding-right: calc(8px + var(--titlebar-right-inset, 0px));
+    padding-left: calc(8px + var(--titlebar-left-inset, 0px));
+    top: 8px;
+  }
+
+  .app[data-layout-mode="desktop"] .header-left {
+    gap: 8px;
+  }
+
+  .app[data-layout-mode="desktop"] .logo-text,
+  .app[data-layout-mode="desktop"] .header-divider,
+  .app[data-layout-mode="desktop"] .header-nav-button--storage,
+  .app[data-layout-mode="desktop"] .header-nav-button--image-host,
+  .app[data-layout-mode="desktop"] .header-nav-button--ai {
+    display: none;
+  }
+
+  .app[data-layout-mode="desktop"] .header-nav-button--article-theme {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .app[data-layout-mode="desktop"] .header-action-secondary,
+  .app[data-layout-mode="desktop"] .header-action-primary {
+    width: 34px;
+    flex: 0 0 34px;
+    display: inline-flex;
+    padding: 0;
+  }
+
+  .app[data-layout-mode="desktop"] .header-action-button span {
+    display: none;
+  }
+
   /* 仅真实移动布局(触屏窄屏)才收起顶栏能力;桌面浏览器拖窄窗口保持完整顶栏 */
   .app[data-layout-mode="mobile"] .app-header {
     height: 50px;

@@ -51,6 +51,26 @@ describe("useMobileView", () => {
     expect(result.current.isMobile).toBe(false);
   });
 
+  it("粗指针在 CSS 移动端断点 768px 也视为移动端", () => {
+    setViewport(768, true);
+    const { result } = renderHook(() => useMobileView());
+
+    expect(result.current.isMobile).toBe(true);
+  });
+
+  it("从桌面端缩放到 768px 时与 CSS 断点保持一致", () => {
+    setViewport(769, true);
+    const { result } = renderHook(() => useMobileView());
+    expect(result.current.isMobile).toBe(false);
+
+    act(() => {
+      setViewport(768, true);
+      window.dispatchEvent(new Event("resize"));
+    });
+
+    expect(result.current.isMobile).toBe(true);
+  });
+
   it("从移动尺寸放大到桌面时重置为编辑视图", () => {
     setViewport(500, true);
     const { result } = renderHook(() => useMobileView());
