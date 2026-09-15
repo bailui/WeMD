@@ -50,6 +50,19 @@ describe("ThemePanel", () => {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
+    ...[
+      ["grid-research", "方格研究风"],
+      ["aurora-dark", "极光暗色风"],
+      ["oversized-tech", "大号科技风"],
+      ["violet-lab", "紫雾实验风"],
+    ].map(([id, name]) => ({
+      id,
+      name,
+      css: "#wemd{}",
+      isBuiltIn: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    })),
     {
       id: "custom1",
       name: "自定义主题",
@@ -155,6 +168,8 @@ describe("ThemePanel", () => {
       screen.getByRole("button", { name: "自定义主题" }),
     ).toBeInTheDocument();
     expect(screen.getByText("内置主题")).toBeInTheDocument();
+    expect(screen.getByText("新增主题")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "方格研究风" })).toBeVisible();
     expect(
       screen.queryByRole("button", { name: "包豪斯" }),
     ).not.toBeInTheDocument();

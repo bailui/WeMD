@@ -31,8 +31,8 @@ describe("wechat copy css integration", () => {
     const themes = [
       ["grid-research", getThemeCss("grid-research"), true],
       ["aurora-dark", getThemeCss("aurora-dark"), true],
-      ["oversized-tech", getThemeCss("oversized-tech"), false],
-      ["violet-lab", getThemeCss("violet-lab"), false],
+      ["oversized-tech", getThemeCss("oversized-tech"), true],
+      ["violet-lab", getThemeCss("violet-lab"), true],
     ] as const;
     const html = `
       <h1><span class="content">文章标题</span></h1>
@@ -105,6 +105,37 @@ describe("wechat copy css integration", () => {
     expect(markdownDeleted.style.backgroundColor).toBe("rgb(7, 21, 31)");
     expect(deleted.style.color).toBe("rgb(155, 186, 182)");
     expect(deleted.style.backgroundColor).toBe("rgb(7, 21, 31)");
+  });
+
+  it("科技风复制原始 section 内容时保持连续画布且不生成灰色条带", () => {
+    const theme = builtInThemes.find((item) => item.id === "oversized-tech");
+    expect(theme).toBeTruthy();
+    const html = `
+      <h1><span class="content">文章标题</span></h1>
+      <section><span leaf="">第一段正文，应该直接排在连续画布上。</span></section>
+      <section><span leaf="">第二段正文，不应该拥有独立灰色背景。</span></section>
+      <p>Markdown 正文同样保持透明背景。</p>
+    `;
+    const container = document.createElement("div");
+    container.innerHTML = resolveInlineStyleVariablesForCopy(
+      processHtml(html, theme!.css, true, true),
+    );
+
+    const result = normalizeCopyContainer(container);
+    const root = container.firstElementChild as HTMLElement;
+    const textSections = root.querySelectorAll<HTMLElement>(":scope > section");
+    const paragraph = root.querySelector("p") as HTMLElement;
+
+    expect(result.requiresExactHtmlTransport).toBe(true);
+    expect(root.tagName).toBe("SECTION");
+    expect(root.style.backgroundColor).toBe("rgb(255, 255, 255)");
+    expect(root.style.backgroundImage).toContain("linear-gradient");
+    expect(textSections).toHaveLength(2);
+    textSections.forEach((section) => {
+      expect(section.style.backgroundColor).toBe("transparent");
+      expect(section.style.backgroundImage).toBe("none");
+    });
+    expect(paragraph.style.backgroundColor).toBe("transparent");
   });
 
   it("将四款场景化主题的关键样式内联到复制内容", () => {

@@ -5,6 +5,7 @@ export const violetLabTheme = `/* 紫雾实验风：实验记录、紫灰标注�
   padding: 25px 22px;
   color: #30283d;
   background-color: #f7f4fb;
+  background-image: linear-gradient(180deg, #fbf9fe 0%, #f7f4fb 100%);
   font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
   font-size: 16px;
   line-height: 1.82;

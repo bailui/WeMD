@@ -2,9 +2,10 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 #wemd {
   max-width: 677px;
   margin: 0 auto;
-  padding: 22px 20px;
+  padding: 24px 20px;
   color: #172238;
-  background-color: #f4f7fb;
+  background-color: #ffffff;
+  background-image: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
   font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
   font-size: 16px;
   line-height: 1.78;
@@ -13,10 +14,10 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 }
 
 #wemd p {
-  margin: 0 0 22px;
-  color: #243149;
+  margin: 0 0 20px;
+  color: #2f3a4c;
   font-size: 16px;
-  line-height: 1.78;
+  line-height: 1.82;
   text-align: left;
 }
 
@@ -31,10 +32,10 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 }
 
 #wemd h1 {
-  margin: 18px 0 46px;
-  padding: 30px 22px 25px;
-  border: 2px solid #101b31;
-  border-bottom: 9px solid #c6f135;
+  margin: 18px 0 40px;
+  padding: 26px 20px 23px;
+  border: none;
+  border-bottom: 6px solid #c6f135;
   color: #ffffff;
   background-color: #101b31;
 }
@@ -42,7 +43,7 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 #wemd h1 .content {
   display: block;
   color: #ffffff;
-  font-size: 39px;
+  font-size: 32px;
   font-weight: 900;
   line-height: 1.22;
   letter-spacing: -0.025em;
@@ -50,17 +51,17 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 }
 
 #wemd h2 {
-  margin: 46px 0 22px;
-  padding: 11px 14px 12px;
-  border-left: 7px solid #1263e5;
-  border-bottom: 2px solid #101b31;
+  margin: 40px 0 20px;
+  padding: 10px 13px 11px;
+  border-left: 5px solid #1263e5;
+  border-bottom: 1px solid #91a2b9;
   color: #101b31;
-  background-color: #e7effc;
+  background-color: #eef4fd;
 }
 
 #wemd h2 .content {
   color: #101b31;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 850;
   line-height: 1.28;
   letter-spacing: -0.015em;
@@ -68,17 +69,18 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 }
 
 #wemd h3 {
-  margin: 34px 0 16px;
-  padding: 0;
-  background-color: #f4f7fb;
+  margin: 31px 0 15px;
+  padding: 0 0 8px;
+  border-bottom: 2px solid #c6f135;
+  background-color: transparent;
 }
 
 #wemd h3 .content {
-  display: inline-block;
-  padding: 5px 10px;
-  border: 2px solid #101b31;
+  display: block;
+  padding: 0;
+  border: none;
   color: #101b31;
-  background-color: #c6f135;
+  background-color: transparent;
   font-size: 18px;
   font-weight: 800;
   line-height: 1.4;
@@ -89,10 +91,10 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 #wemd h5,
 #wemd h6 {
   margin: 28px 0 13px;
-  padding: 6px 10px;
+  padding: 4px 10px;
   border-left: 3px solid #1263e5;
   color: #17375f;
-  background-color: #edf2f8;
+  background-color: #ffffff;
 }
 
 #wemd h4 .content,
@@ -153,9 +155,10 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 
 #wemd ul,
 #wemd ol {
-  margin: 18px 0 25px;
-  padding-left: 27px;
+  margin: 17px 0 25px;
+  padding: 4px 0 4px 27px;
   color: #1263e5;
+  background-color: transparent;
 }
 
 #wemd ul {
@@ -175,8 +178,8 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 }
 
 #wemd ol > li > section {
-  padding: 4px 0 7px;
-  border-bottom: 1px solid #c7d2df;
+  padding: 4px 0 8px;
+  border-bottom: 1px solid #dbe3ee;
 }
 
 #wemd blockquote {
@@ -184,27 +187,27 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 }
 
 #wemd .multiquote-1 {
-  margin: 30px 0;
-  padding: 19px 20px;
-  border: 2px solid #1263e5;
-  border-left: 8px solid #1263e5;
+  margin: 28px 0;
+  padding: 17px 18px;
+  border: 1px solid #9bbcea;
+  border-left: 5px solid #1263e5;
   color: #17375f;
   background-color: #e8f0fd;
 }
 
 #wemd .multiquote-2 {
-  margin: 26px 0;
-  padding: 19px 20px;
-  border: 2px solid #101b31;
+  margin: 25px 0;
+  padding: 18px 19px;
+  border: 1px solid #34435c;
   color: #f5f8ff;
   background-color: #101b31;
 }
 
 #wemd .multiquote-3 {
-  margin: 26px 0;
-  padding: 18px 20px;
-  border: 2px solid #101b31;
-  border-bottom: 7px solid #1263e5;
+  margin: 25px 0;
+  padding: 17px 19px;
+  border: 1px solid #769b22;
+  border-left: 5px solid #1263e5;
   color: #17220c;
   background-color: #c6f135;
 }
@@ -242,10 +245,10 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 }
 
 #wemd hr {
-  height: 7px;
-  margin: 44px 0;
+  height: 3px;
+  margin: 40px 0;
   border: none;
-  border-right: 72px solid #c6f135;
+  border-right: 48px solid #c6f135;
   background-color: #1263e5;
 }
 
@@ -360,10 +363,10 @@ export const oversizedTechTheme = `/* 大号科技风：超大标题、硬朗分
 }
 
 #wemd .callout {
-  margin: 31px 0;
-  padding: 18px 20px;
-  border: 2px solid #1263e5;
-  border-left: 8px solid #1263e5;
+  margin: 29px 0;
+  padding: 17px 18px;
+  border: 1px solid #9bbcea;
+  border-left: 5px solid #1263e5;
   border-radius: 0;
   color: #17375f;
   background-color: #e8f0fd;

@@ -18,6 +18,13 @@ import { Modal } from "../common/Modal";
 import { ThemeDesigner, type DesignerVariables } from "./ThemeDesigner";
 import { ThemeLivePreview } from "./ThemeLivePreview";
 
+const FEATURED_THEME_IDS = new Set([
+  "grid-research",
+  "aurora-dark",
+  "oversized-tech",
+  "violet-lab",
+]);
+
 interface ThemePanelViewProps {
   open: boolean;
   onClose: () => void;
@@ -110,6 +117,13 @@ export function ThemePanelView({
 }: ThemePanelViewProps) {
   if (!open) return null;
 
+  const featuredThemes = builtInThemes.filter((theme) =>
+    FEATURED_THEME_IDS.has(theme.id),
+  );
+  const standardBuiltInThemes = builtInThemes.filter(
+    (theme) => !FEATURED_THEME_IDS.has(theme.id),
+  );
+
   return (
     <Modal
       open={open}
@@ -144,6 +158,21 @@ export function ThemePanelView({
             }}
           />
 
+          {featuredThemes.length > 0 && (
+            <div className="theme-featured-group">
+              <div className="theme-group-title">新增主题</div>
+              {featuredThemes.map((item) => (
+                <button
+                  key={item.id}
+                  className={`theme-item ${item.id === selectedThemeId ? "active" : ""}`}
+                  onClick={() => onSelectTheme(item.id)}
+                >
+                  {item.name}
+                </button>
+              ))}
+            </div>
+          )}
+
           <div className="theme-list-scroll">
             {customThemes.length > 0 && (
               <div className="theme-group">
@@ -163,7 +192,7 @@ export function ThemePanelView({
 
             <div className="theme-group">
               <div className="theme-group-title">内置主题</div>
-              {builtInThemes.map((item) => (
+              {standardBuiltInThemes.map((item) => (
                 <button
                   key={item.id}
                   className={`theme-item ${item.id === selectedThemeId ? "active" : ""}`}

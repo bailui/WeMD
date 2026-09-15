@@ -85,8 +85,11 @@ describe("writer-focused themes", () => {
     expect(auroraDarkTheme).toContain("background-color: #07151f");
     expect(auroraDarkTheme).toContain("border-top: 6px solid #4ee1c1");
 
-    expect(oversizedTechTheme).toContain("font-size: 39px");
-    expect(oversizedTechTheme).toContain("border-bottom: 9px solid #c6f135");
+    expect(oversizedTechTheme).toContain("font-size: 32px");
+    expect(oversizedTechTheme).toContain("border-bottom: 6px solid #c6f135");
+    expect(oversizedTechTheme).toContain(
+      "background-image: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)",
+    );
 
     expect(violetLabTheme).toContain("border: 1px dashed #9684b2");
     expect(violetLabTheme).toContain("list-style-type: decimal-leading-zero");
