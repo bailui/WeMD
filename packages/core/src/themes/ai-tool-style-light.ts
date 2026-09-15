@@ -5,7 +5,8 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
   padding: 28px 22px;
   color: #555555;
   background-color: #ffffff;
-  background-image: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%);
+  background-image: linear-gradient(45deg, transparent 48.5%, #eee8f7 49.5%, #eee8f7 50.5%, transparent 51.5%), linear-gradient(-45deg, transparent 48.5%, #eee8f7 49.5%, #eee8f7 50.5%, transparent 51.5%);
+  background-size: 24px 24px;
   font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
   font-size: 16px;
   line-height: 1.82;

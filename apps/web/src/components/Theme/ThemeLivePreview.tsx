@@ -78,6 +78,8 @@ interface ThemeLivePreviewProps {
   designerVariables?: DesignerVariables;
   /** 是否使用当前文章内容，true=订阅 store 获取当前文章，false=使用内置示例 */
   useCurrentArticle?: boolean;
+  /** 暗色界面中仍按浅色纸面原样预览 */
+  preserveLightColorsInDarkMode?: boolean;
 }
 
 // 主题实时预览组件（使用 iframe 隔离样式）
@@ -85,6 +87,7 @@ export const ThemeLivePreview = memo(function ThemeLivePreview({
   css,
   designerVariables,
   useCurrentArticle = false,
+  preserveLightColorsInDarkMode = false,
 }: ThemeLivePreviewProps) {
   // 只有当 useCurrentArticle=true 时才订阅 store，避免不必要的重渲染
   const currentMarkdown = useEditorStore((state) =>
@@ -130,8 +133,11 @@ export const ThemeLivePreview = memo(function ThemeLivePreview({
   );
 
   const finalCss = useMemo(
-    () => (isDarkMode ? convertCssToWeChatDarkMode(css) : css),
-    [css, isDarkMode],
+    () =>
+      isDarkMode && !preserveLightColorsInDarkMode
+        ? convertCssToWeChatDarkMode(css)
+        : css,
+    [css, isDarkMode, preserveLightColorsInDarkMode],
   );
   const previewContent =
     useCurrentArticle && currentMarkdown !== undefined

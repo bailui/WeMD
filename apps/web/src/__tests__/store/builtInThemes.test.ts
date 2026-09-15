@@ -128,6 +128,25 @@ describe("built-in themes", () => {
     );
   });
 
+  it("浅色网格主题在暗色界面中保持原纸面颜色", () => {
+    const themeIds = ["ai-tool-style-light", "grid-research"];
+
+    for (const themeId of themeIds) {
+      const theme = builtInThemes.find((item) => item.id === themeId);
+      expect(theme?.preserveLightColorsInDarkMode, themeId).toBe(true);
+      expect(useThemeStore.getState().getThemeCSS(themeId, true)).toBe(
+        useThemeStore.getState().getThemeCSS(themeId, false),
+      );
+      expect(useThemeStore.getState().getThemeCSS(themeId, true)).not.toContain(
+        "wemd-wechat-dark-converted",
+      );
+    }
+
+    expect(useThemeStore.getState().getThemeCSS("default", true)).toContain(
+      "wemd-wechat-dark-converted",
+    );
+  });
+
   it("深色代码块主题使用可读的深色语法高亮配色", () => {
     const darkCodeThemeIds = [
       "modern-editorial",

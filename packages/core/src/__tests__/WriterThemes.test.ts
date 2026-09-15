@@ -101,9 +101,8 @@ describe("writer-focused themes", () => {
   it("两款亮色主题保留各自原始配色并采用舒展排版", () => {
     expect(aiToolStyleLightTheme).toContain("font-size: 16px");
     expect(aiToolStyleLightTheme).toContain("border-top: 5px solid #916dd5");
-    expect(aiToolStyleLightTheme).toContain(
-      "background-image: linear-gradient(180deg, #ffffff 0%, #faf8fd 100%)",
-    );
+    expect(aiToolStyleLightTheme).toContain("#eee8f7 49.5%");
+    expect(aiToolStyleLightTheme).toContain("background-size: 24px 24px");
     expect(aiToolStyleLightTheme).toMatch(/#916dd5|#e2c056/i);
     expect(aiToolStyleLightTheme).not.toMatch(/url\s*\(/i);
 

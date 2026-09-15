@@ -293,6 +293,9 @@ export function ThemePanelView({
                   </div>
                   <ThemeLivePreview
                     css={previewCss}
+                    preserveLightColorsInDarkMode={
+                      selectedTheme?.preserveLightColorsInDarkMode
+                    }
                     designerVariables={
                       isVisualEditing ? designerVariables : undefined
                     }

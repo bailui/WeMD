@@ -187,7 +187,13 @@ export const useThemeStore = create<ThemeStore>((set, get) => {
         css = custom ? custom.css : builtInThemes[0].css;
       }
 
-      // 深色模式下：使用微信颜色转换算法
+      // 明确以浅色纸面为设计基础的主题，在暗色界面中也保持文章原色。
+      // 仅应用外壳变暗，避免网格和纸张背景被转换成深色。
+      if (darkMode && builtIn?.preserveLightColorsInDarkMode) {
+        return css;
+      }
+
+      // 其他主题在深色模式下使用微信颜色转换算法
       if (darkMode) {
         const cacheKey = buildDarkCacheKey(themeId, css);
         if (darkCssCache.has(cacheKey)) {

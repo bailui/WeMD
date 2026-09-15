@@ -60,6 +60,8 @@ export interface CustomTheme {
   isBuiltIn: boolean;
   /** 是否允许用户主动选择；设为 false 的内置主题仅用于兼容历史文章 */
   isSelectable?: boolean;
+  /** 暗色界面中保持主题原色，适用于必须维持浅色纸面的主题 */
+  preserveLightColorsInDarkMode?: boolean;
   createdAt: string;
   updatedAt: string;
   /** 编辑模式：创建时确定，不可更改 */
@@ -130,6 +132,7 @@ export const builtInThemes: CustomTheme[] = [
     name: "方格研究风",
     css: basicTheme + "\n" + gridResearchTheme + "\n" + codeGithubDarkTheme,
     isBuiltIn: true,
+    preserveLightColorsInDarkMode: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
@@ -343,6 +346,7 @@ export const builtInThemes: CustomTheme[] = [
     name: "☀️ AI工具风·亮",
     css: basicTheme + "\n" + aiToolStyleLightTheme + "\n" + codeGithubTheme,
     isBuiltIn: true,
+    preserveLightColorsInDarkMode: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
