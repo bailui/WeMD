@@ -2,24 +2,24 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd {
   max-width: 677px;
   margin: 0 auto;
-  padding: 24px 18px;
+  padding: 18px 14px;
   color: #555555;
   background-color: #ffffff;
   background-image: linear-gradient(45deg, transparent 48.5%, #eee8f7 49.5%, #eee8f7 50.5%, transparent 51.5%), linear-gradient(-45deg, transparent 48.5%, #eee8f7 49.5%, #eee8f7 50.5%, transparent 51.5%);
   background-size: 24px 24px;
   font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
   font-size: 14px;
-  line-height: 1.85;
-  letter-spacing: 1.2px;
+  line-height: 1.65;
+  letter-spacing: 0.5px;
   word-break: break-word;
 }
 
 #wemd p {
-  margin: 18px 0;
+  margin: 12px 0;
   color: #555555;
   background-color: transparent;
   font-size: 14px;
-  line-height: 1.85;
+  line-height: 1.65;
   text-align: left;
 }
 
@@ -35,7 +35,7 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 }
 
 #wemd h1 {
-  margin: 24px 0 22px;
+  margin: 14px 0 16px;
   padding: 0;
   border: none;
   background-color: transparent;
@@ -43,19 +43,21 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 
 #wemd h1 .content {
   display: inline-block;
-  padding: 10px 18px;
-  border-radius: 8px 8px 0 0;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 7px 12px;
+  border-radius: 3px 3px 0 0;
   color: #ffffff;
   background-color: #916dd5;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
-  line-height: 1.45;
-  letter-spacing: 0.01em;
+  line-height: 1.5;
+  letter-spacing: 0.3px;
   text-wrap: balance;
 }
 
 #wemd h2 {
-  margin: 24px 10px 14px 0;
+  margin: 18px 8px 10px 0;
   padding: 0;
   border: none;
   background-color: transparent;
@@ -63,17 +65,17 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 
 #wemd h2 .content {
   display: inline-block;
-  padding: 4px 0 4px 12px;
-  border-left: 3px solid #916dd5;
+  padding: 2px 0 2px 8px;
+  border-left: 2px solid #916dd5;
   color: #333333;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  line-height: 1.55;
+  line-height: 1.5;
   text-wrap: balance;
 }
 
 #wemd h3 {
-  margin: 24px 0 14px;
+  margin: 18px 0 10px;
   padding: 0;
   border: none;
   background-color: transparent;
@@ -82,10 +84,10 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 
 #wemd h3 .content {
   display: inline-block;
-  padding: 6px 0;
-  border-bottom: 2px solid #916dd5;
+  padding: 3px 0;
+  border-bottom: 1px solid #916dd5;
   color: #333333;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.5;
 }
@@ -93,7 +95,7 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd h4,
 #wemd h5,
 #wemd h6 {
-  margin: 18px 0 10px;
+  margin: 16px 0 8px;
   padding: 0;
   background-color: transparent;
 }
@@ -168,8 +170,8 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 
 #wemd ul,
 #wemd ol {
-  margin: 16px 0;
-  padding-left: 22px;
+  margin: 12px 0;
+  padding-left: 20px;
   color: #916dd5;
 }
 
@@ -177,37 +179,37 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd ol { list-style-type: decimal; }
 
 #wemd li section {
-  margin: 6px 0;
+  margin: 4px 0;
   color: #555555;
   font-size: 14px;
-  line-height: 1.85;
-  letter-spacing: 1.2px;
+  line-height: 1.65;
+  letter-spacing: 0.5px;
 }
 
 #wemd blockquote { border: none; }
 
 #wemd .multiquote-1 {
-  margin: 20px 0;
-  padding: 16px 18px;
+  margin: 14px 0;
+  padding: 11px 13px;
   border: 1px solid #e2e2e2;
-  border-left: 4px solid #916dd5;
+  border-left: 3px solid #916dd5;
   color: #555555;
   background-color: #f5f5f5;
 }
 
 #wemd .multiquote-2 {
-  margin: 18px 0;
-  padding: 14px 18px;
-  border-left: 4px solid #916dd5;
+  margin: 14px 0;
+  padding: 10px 13px;
+  border-left: 3px solid #916dd5;
   color: #666666;
   background-color: #f4f0fb;
 }
 
 #wemd .multiquote-3 {
-  margin: 16px 0;
-  padding: 12px 16px;
+  margin: 12px 0;
+  padding: 10px 13px;
   border: 1px solid #eadca8;
-  border-left: 4px solid #e2c056;
+  border-left: 3px solid #e2c056;
   color: #666666;
   background-color: #fbf7e8;
 }
@@ -217,14 +219,14 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
   margin: 0;
   color: #666666;
   font-size: 14px;
-  line-height: 1.75;
+  line-height: 1.65;
 }
 
 #wemd .multiquote-3 p {
   margin: 0;
   color: #666666;
   font-size: 14px;
-  line-height: 1.75;
+  line-height: 1.65;
 }
 
 #wemd .multiquote-1 .multiquote-1,
@@ -235,12 +237,12 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd .multiquote-3 .multiquote-2,
 #wemd .multiquote-3 .multiquote-3 {
   margin: 12px 0 0;
-  padding: 12px 14px;
+  padding: 9px 11px;
 }
 
 #wemd hr {
   height: 0;
-  margin: 32px 0;
+  margin: 24px 0;
   border: none;
   border-top: 1px solid #e4ddef;
   background-color: transparent;
