@@ -101,7 +101,7 @@ describe("writer-focused themes", () => {
   it("两款亮色主题保留各自原始配色且 AI 亮色主题使用紧凑字号", () => {
     expect(aiToolStyleLightTheme).toContain("font-size: 14px");
     expect(aiToolStyleLightTheme).toMatch(
-      /#wemd h1 \.content\s*\{[\s\S]*?max-width:\s*88%;[\s\S]*?font-size:\s*14px;/,
+      /#wemd h1 \.content\s*\{[\s\S]*?max-width:\s*94%;[\s\S]*?border-radius:\s*16px;[\s\S]*?font-size:\s*16px;/,
     );
     expect(aiToolStyleLightTheme).toContain("line-height: 1.65");
     expect(aiToolStyleLightTheme).toContain("letter-spacing: 0.5px");
