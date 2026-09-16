@@ -39,20 +39,22 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
   padding: 0;
   border: none;
   background-color: transparent;
+  text-align: center;
 }
 
 #wemd h1 .content {
   display: inline-block;
   box-sizing: border-box;
-  max-width: 100%;
-  padding: 7px 12px;
+  max-width: 88%;
+  padding: 6px 10px;
   border-radius: 3px 3px 0 0;
   color: #ffffff;
   background-color: #916dd5;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.55;
   letter-spacing: 0.3px;
+  text-align: left;
   text-wrap: balance;
 }
 
