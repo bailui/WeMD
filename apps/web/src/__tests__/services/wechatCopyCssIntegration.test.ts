@@ -156,6 +156,28 @@ describe("wechat copy css integration", () => {
     expect(quoteParagraph.style.lineHeight).toBe("1.65");
   });
 
+  it("AI 亮色主题将英文直引号包裹的中文粗体复制为紫色强调", () => {
+    const theme = builtInThemes.find(
+      (item) => item.id === "ai-tool-style-light",
+    );
+    expect(theme).toBeTruthy();
+
+    const markdown = '关键就在**"对应增值"**这四个字。';
+    const rendered = createMarkdownParser().render(markdown);
+    const container = document.createElement("div");
+    container.innerHTML = resolveInlineStyleVariablesForCopy(
+      processHtml(rendered, theme!.css, true, true),
+    );
+
+    normalizeCopyContainer(container);
+
+    const strong = container.querySelector("strong") as HTMLElement | null;
+    expect(strong?.textContent).toBe('"对应增值"');
+    expect(strong?.style.color).toBe("rgb(145, 109, 213)");
+    expect(strong?.style.fontWeight).toBe("750");
+    expect(container.textContent).not.toContain("**");
+  });
+
   it("科技风复制原始 section 内容时保持连续画布且不生成灰色条带", () => {
     const theme = builtInThemes.find((item) => item.id === "oversized-tech");
     expect(theme).toBeTruthy();

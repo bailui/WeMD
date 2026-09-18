@@ -83,6 +83,17 @@ describe("MarkdownParser 中文强调边界", () => {
     expect(html).toContain("<strong>关键结论：</strong>没有借条");
     expect(html).toContain("<code>**代码示例：**正文</code>");
   });
+
+  it("解析英文直引号结束且后接中文的粗体", () => {
+    const html = createMarkdownParser().render(
+      '关键就在**"对应增值"**这四个字。',
+    );
+
+    expect(html).toContain(
+      "关键就在<strong>&quot;对应增值&quot;</strong>这四个字。",
+    );
+    expect(html).not.toContain("**");
+  });
 });
 
 describe("MarkdownParser 预览源位置", () => {
