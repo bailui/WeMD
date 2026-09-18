@@ -76,7 +76,7 @@ describe("writer-focused themes", () => {
       expect(css, name).not.toMatch(/background-clip:\s*text/i);
       expect(css, name).not.toMatch(/(?:^|[;{])\s*color:\s*transparent/i);
       expect(css, name).not.toMatch(/backdrop-filter/i);
-      expect(css, name).not.toMatch(/@font-face|url\s*\(/i);
+      expect(css, name).not.toMatch(/@font-face|url\s*\(\s*["']?https?:/i);
     }
   });
 
@@ -98,18 +98,25 @@ describe("writer-focused themes", () => {
     expect(violetLabTheme).toContain("list-style-type: decimal-leading-zero");
   });
 
-  it("两款亮色主题保留各自原始配色且 AI 亮色主题使用紧凑字号", () => {
+  it("两款亮色主题保留各自配色且 AI 亮色标题清晰居中", () => {
     expect(aiToolStyleLightTheme).toContain("font-size: 14px");
     expect(aiToolStyleLightTheme).toMatch(
-      /#wemd h1 \.content\s*\{[\s\S]*?max-width:\s*94%;[\s\S]*?border-radius:\s*16px;[\s\S]*?font-size:\s*16px;/,
+      /#wemd h1\s*\{[\s\S]*?text-align:\s*center;/,
+    );
+    expect(aiToolStyleLightTheme).toMatch(
+      /#wemd h1 \.content\s*\{[\s\S]*?max-width:\s*100%;[\s\S]*?border-radius:\s*16px;[\s\S]*?font-size:\s*20px;[\s\S]*?line-height:\s*1\.5;[\s\S]*?text-align:\s*center;/,
     );
     expect(aiToolStyleLightTheme).toContain("line-height: 1.65");
     expect(aiToolStyleLightTheme).toContain("letter-spacing: 0.5px");
     expect(aiToolStyleLightTheme).toContain("background-color: #916dd5");
-    expect(aiToolStyleLightTheme).toContain("#eee8f7 49.5%");
+    expect(aiToolStyleLightTheme).toContain(
+      "background-image: url(data:image/svg+xml;base64,",
+    );
     expect(aiToolStyleLightTheme).toContain("background-size: 24px 24px");
+    expect(aiToolStyleLightTheme).toContain("background-repeat: repeat");
+    expect(aiToolStyleLightTheme).not.toContain("linear-gradient");
     expect(aiToolStyleLightTheme).toMatch(/#916dd5|#e2c056/i);
-    expect(aiToolStyleLightTheme).not.toMatch(/url\s*\(/i);
+    expect(aiToolStyleLightTheme).not.toMatch(/url\s*\(\s*["']?https?:/i);
 
     expect(gridResearchTheme).toContain("#dfe5dc 1px");
     expect(gridResearchTheme).toMatch(/#f7f3e8|#cc5c35|#1b6e70/i);

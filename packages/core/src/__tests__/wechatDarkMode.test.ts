@@ -145,6 +145,20 @@ describe("convertCssToWeChatDarkMode", () => {
     expect(result).not.toContain("#ffffff");
   });
 
+  it("透明 SVG 网格在暗色模式下保留并补上深色底", () => {
+    const css = `#wemd {
+      background-color: #ffffff;
+      background-image: url(data:image/svg+xml;base64,PHN2Zy8+);
+      background-size: 24px 24px;
+    }`;
+    const result = convertCssToWeChatDarkMode(css);
+
+    expect(result).toContain("url(data:image/svg+xml;base64,PHN2Zy8+)");
+    expect(result).toContain("linear-gradient");
+    expect(result).not.toContain("background-color: #ffffff");
+    expect(result).toContain("background-size: 24px 24px, 100%");
+  });
+
   it("gradient 内保留 alpha hex 后缀", () => {
     const css = "div { background: linear-gradient(#ffffff00, #ffffff80); }";
     const result = convertCssToWeChatDarkMode(css);

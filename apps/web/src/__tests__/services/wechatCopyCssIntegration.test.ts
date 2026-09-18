@@ -108,6 +108,42 @@ describe("wechat copy css integration", () => {
     expect(deleted.style.backgroundColor).toBe("rgb(7, 21, 31)");
   });
 
+  it("AI 亮色主题复制后保留细网格与居中大标题", () => {
+    const theme = builtInThemes.find(
+      (item) => item.id === "ai-tool-style-light",
+    );
+    expect(theme).toBeTruthy();
+
+    const container = document.createElement("div");
+    container.innerHTML = resolveInlineStyleVariablesForCopy(
+      processHtml(
+        '<h1><span class="content">亲戚借钱不还，我一开口要钱，全家反倒说我不懂事？</span></h1><p>正文内容</p>',
+        theme!.css,
+        true,
+        true,
+      ),
+    );
+
+    const result = normalizeCopyContainer(container);
+    const root = container.firstElementChild as HTMLElement;
+    const heading = root.querySelector("h1") as HTMLElement;
+    const title = root.querySelector("h1 .content") as HTMLElement;
+
+    expect(result.requiresExactHtmlTransport).toBe(true);
+    expect(root.tagName).toBe("SECTION");
+    expect(root.style.backgroundColor).toBe("rgb(255, 255, 255)");
+    expect(root.style.backgroundImage).toContain("data:image/svg+xml;base64,");
+    expect(root.style.backgroundImage).not.toContain("linear-gradient");
+    expect(root.style.backgroundSize).toBe("24px 24px");
+    expect(root.style.backgroundRepeat).toBe("repeat");
+    expect(heading.style.textAlign).toBe("center");
+    expect(title.style.fontSize).toBe("20px");
+    expect(title.style.lineHeight).toBe("1.5");
+    expect(title.style.textAlign).toBe("center");
+    expect(title.style.borderRadius).toBe("16px");
+    expect(title.style.backgroundColor).toBe("rgb(145, 109, 213)");
+  });
+
   it("科技风复制原始 section 内容时保持连续画布且不生成灰色条带", () => {
     const theme = builtInThemes.find((item) => item.id === "oversized-tech");
     expect(theme).toBeTruthy();

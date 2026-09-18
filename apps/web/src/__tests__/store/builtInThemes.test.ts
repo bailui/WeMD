@@ -128,19 +128,26 @@ describe("built-in themes", () => {
     );
   });
 
-  it("浅色网格主题在暗色界面中保持原纸面颜色", () => {
-    const themeIds = ["ai-tool-style-light", "grid-research"];
+  it("AI 亮色主题跟随夜间配色，方格主题继续保留原纸面", () => {
+    const aiTheme = builtInThemes.find(
+      (item) => item.id === "ai-tool-style-light",
+    );
+    const aiLightCss = useThemeStore
+      .getState()
+      .getThemeCSS("ai-tool-style-light", false);
+    const aiDarkCss = useThemeStore
+      .getState()
+      .getThemeCSS("ai-tool-style-light", true);
 
-    for (const themeId of themeIds) {
-      const theme = builtInThemes.find((item) => item.id === themeId);
-      expect(theme?.preserveLightColorsInDarkMode, themeId).toBe(true);
-      expect(useThemeStore.getState().getThemeCSS(themeId, true)).toBe(
-        useThemeStore.getState().getThemeCSS(themeId, false),
-      );
-      expect(useThemeStore.getState().getThemeCSS(themeId, true)).not.toContain(
-        "wemd-wechat-dark-converted",
-      );
-    }
+    expect(aiTheme?.preserveLightColorsInDarkMode).not.toBe(true);
+    expect(aiDarkCss).not.toBe(aiLightCss);
+    expect(aiDarkCss).toContain("wemd-wechat-dark-converted");
+
+    const gridTheme = builtInThemes.find((item) => item.id === "grid-research");
+    expect(gridTheme?.preserveLightColorsInDarkMode).toBe(true);
+    expect(useThemeStore.getState().getThemeCSS("grid-research", true)).toBe(
+      useThemeStore.getState().getThemeCSS("grid-research", false),
+    );
 
     expect(useThemeStore.getState().getThemeCSS("default", true)).toContain(
       "wemd-wechat-dark-converted",

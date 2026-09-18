@@ -5,8 +5,9 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
   padding: 18px 14px;
   color: #555555;
   background-color: #ffffff;
-  background-image: linear-gradient(45deg, transparent 48.5%, #eee8f7 49.5%, #eee8f7 50.5%, transparent 51.5%), linear-gradient(-45deg, transparent 48.5%, #eee8f7 49.5%, #eee8f7 50.5%, transparent 51.5%);
+  background-image: url(data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9JzI0JyBoZWlnaHQ9JzI0JyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPgogIDxkZWZzPjxwYXR0ZXJuIGlkPSdnJyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHBhdHRlcm5Vbml0cz0ndXNlclNwYWNlT25Vc2UnPgogICAgPHBhdGggZD0nTTEyIDBMMjQgMTJMMTIgMjRMMCAxMlonIGZpbGw9J25vbmUnIHN0cm9rZT0ncmdiYSgxNDUsMTA5LDIxMywwLjA2KScgc3Ryb2tlLXdpZHRoPScwLjUnLz4KICA8L3BhdHRlcm4+PC9kZWZzPgogIDxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbGw9J3VybCgjZyknLz4KPC9zdmc+);
   background-size: 24px 24px;
+  background-repeat: repeat;
   font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
   font-size: 14px;
   line-height: 1.65;
@@ -35,7 +36,7 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 }
 
 #wemd h1 {
-  margin: 14px 0 16px;
+  margin: 20px 0 18px;
   padding: 0;
   border: none;
   background-color: transparent;
@@ -45,17 +46,17 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd h1 .content {
   display: inline-block;
   box-sizing: border-box;
-  max-width: 94%;
-  padding: 11px 16px;
+  max-width: 100%;
+  padding: 10px 18px;
   border-radius: 16px;
   color: #ffffff;
   background-color: #916dd5;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 650;
-  line-height: 1.6;
+  line-height: 1.5;
   letter-spacing: 0.4px;
   box-shadow: 0 4px 12px rgba(91, 61, 153, 0.14);
-  text-align: left;
+  text-align: center;
   text-wrap: balance;
 }
 
@@ -194,8 +195,9 @@ export const aiToolStyleLightTheme = `/* AI工具风·亮：清爽的产品编�
 #wemd .multiquote-1 {
   margin: 14px 0;
   padding: 11px 13px;
-  border: 1px solid #e2e2e2;
+  border: none;
   border-left: 3px solid #916dd5;
+  border-radius: 0 10px 10px 0;
   color: #555555;
   background-color: #f5f5f5;
 }

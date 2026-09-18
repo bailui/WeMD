@@ -346,7 +346,6 @@ export const builtInThemes: CustomTheme[] = [
     name: "☀️ AI工具风·亮",
     css: basicTheme + "\n" + aiToolStyleLightTheme + "\n" + codeGithubTheme,
     isBuiltIn: true,
-    preserveLightColorsInDarkMode: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
