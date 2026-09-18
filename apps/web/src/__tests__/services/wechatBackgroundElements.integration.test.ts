@@ -204,7 +204,8 @@ describe("公众号背景文章综合元素复制", () => {
       "https://wemd.app",
     );
     expect(root.querySelector("img[alt='示例图片']")).toBeTruthy();
-    expect(root.querySelector("blockquote")).toBeTruthy();
+    expect(root.querySelector("section.multiquote-1")).toBeTruthy();
+    expect(root.querySelector("blockquote.multiquote-1")).toBeNull();
     expect(root.querySelector(".callout .callout-title")).toBeTruthy();
     expect(root.querySelectorAll("li")).toHaveLength(2);
     expect(root.querySelector("table td")?.textContent).toBe("背景");

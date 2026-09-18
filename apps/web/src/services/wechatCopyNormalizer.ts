@@ -339,6 +339,34 @@ const transformWemdRootSectionToDiv = (container: HTMLElement): void => {
   container.replaceChildren(wrapper);
 };
 
+const THEMED_BLOCKQUOTE_SELECTOR =
+  "blockquote.multiquote-1,blockquote.multiquote-2,blockquote.multiquote-3";
+
+/**
+ * 微信编辑器会在粘贴后异步重写 blockquote，长引用可能先显示正常，
+ * 随后只保留一行高度并让后续文字溢出。主题引用卡不依赖 blockquote
+ * 的原生语义，复制时改用稳定的 section，同时保留全部内联样式。
+ */
+const transformThemedBlockquotesForWechat = (container: HTMLElement): void => {
+  container
+    .querySelectorAll<HTMLElement>(THEMED_BLOCKQUOTE_SELECTOR)
+    .forEach((blockquote) => {
+      const section = document.createElement("section");
+      Array.from(blockquote.attributes).forEach((attribute) => {
+        section.setAttribute(attribute.name, attribute.value);
+      });
+      while (blockquote.firstChild) {
+        section.appendChild(blockquote.firstChild);
+      }
+
+      section.style.setProperty("display", "block");
+      section.style.setProperty("box-sizing", "border-box");
+      section.style.setProperty("height", "auto");
+      section.style.setProperty("overflow", "visible");
+      blockquote.replaceWith(section);
+    });
+};
+
 export const stripCopyMetadata = (container: HTMLElement): void => {
   const root = container.firstElementChild;
   if (root instanceof HTMLElement && root.id === "wemd") {
@@ -386,6 +414,7 @@ const shouldUseMarginForHorizontalOffset = (node: HTMLElement): boolean => {
   if (isHeadingElement(node)) return true;
   const tagName = node.tagName;
   if (tagName === "BLOCKQUOTE") return true;
+  if (node.matches(".multiquote-1,.multiquote-2,.multiquote-3")) return true;
   if (tagName === "PRE") return true;
   if (tagName === "HR") return true;
   if (node.classList.contains("callout")) return true;
@@ -602,6 +631,7 @@ export const normalizeCopyContainer = (
   container: HTMLElement,
 ): WechatCopyNormalizationResult => {
   materializeCodeLineBreaksForWechat(container);
+  transformThemedBlockquotesForWechat(container);
   const preserveRootBackgroundCanvas =
     prepareRootBackgroundCanvasForWechat(container);
   if (!preserveRootBackgroundCanvas) {

@@ -117,7 +117,7 @@ describe("wechat copy css integration", () => {
     const container = document.createElement("div");
     container.innerHTML = resolveInlineStyleVariablesForCopy(
       processHtml(
-        '<h1><span class="content">亲戚借钱不还，我一开口要钱，全家反倒说我不懂事？</span></h1><p>正文内容</p>',
+        '<h1><span class="content">亲戚借钱不还，我一开口要钱，全家反倒说我不懂事？</span></h1><blockquote class="multiquote-1"><p><strong>副标</strong>：亲戚 / 闺蜜 / 婆家，三种关系三种判法——亲情不是免债金牌，证据才是真的给出去。</p></blockquote><p>正文内容</p>',
         theme!.css,
         true,
         true,
@@ -128,6 +128,8 @@ describe("wechat copy css integration", () => {
     const root = container.firstElementChild as HTMLElement;
     const heading = root.querySelector("h1") as HTMLElement;
     const title = root.querySelector("h1 .content") as HTMLElement;
+    const quote = root.querySelector("section.multiquote-1") as HTMLElement;
+    const quoteParagraph = quote.querySelector("p") as HTMLElement;
 
     expect(result.requiresExactHtmlTransport).toBe(true);
     expect(root.tagName).toBe("SECTION");
@@ -142,6 +144,16 @@ describe("wechat copy css integration", () => {
     expect(title.style.textAlign).toBe("center");
     expect(title.style.borderRadius).toBe("16px");
     expect(title.style.backgroundColor).toBe("rgb(145, 109, 213)");
+    expect(root.querySelector("blockquote.multiquote-1")).toBeNull();
+    expect(quote.tagName).toBe("SECTION");
+    expect(quote.style.display).toBe("block");
+    expect(quote.style.height).toBe("auto");
+    expect(quote.style.overflow).toBe("visible");
+    expect(quote.style.backgroundColor).toBeTruthy();
+    expect(quote.style.backgroundColor).not.toBe("transparent");
+    expect(quote.style.borderLeftColor).toBe("rgb(145, 109, 213)");
+    expect(quoteParagraph.textContent).toContain("证据才是真的给出去");
+    expect(quoteParagraph.style.lineHeight).toBe("1.65");
   });
 
   it("科技风复制原始 section 内容时保持连续画布且不生成灰色条带", () => {
